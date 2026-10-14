@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Solaria Beauty Lab",
+  "short_name": "Solaria",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f4ec",
+  "theme_color": "#140b05",
+  "lang": "it-IT",
+  "description": "Centro di estetica avanzata ed epilazione laser a Villanova di Guidonia.",
+  "icons": [
+    {
+      "src": "/brand/favicon-new.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

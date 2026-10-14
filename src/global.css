@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1a1714;
+  --color-ink-soft: #39312b;
+  --color-cream-50: #fffdf8;
+  --color-cream-100: #fff4df;
+  --color-cream-200: #f8edda;
+  --color-bronze-700: #9e5416;
+  --color-bronze-800: #864910;
+  --color-bronze-900: #6b3b16;
+  --color-gold-300: #fad584;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #cb9f31;
+  --color-sage-100: #edf1e8;
+  --color-sage-700: #58604d;
+  --font-display:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia,
+    serif;
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --radius-card: 1.5rem;
+}
+
+:root {
+  color: var(--color-ink);
+  background: var(--color-cream-50);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --shadow-soft: 0 24px 80px -36px rgba(88, 47, 12, 0.28);
+  --shadow-card: 0 18px 55px -32px rgba(88, 47, 12, 0.26);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at 8% 7%,
+      rgba(250, 213, 132, 0.15),
+      transparent 31rem
+    ),
+    radial-gradient(
+      circle at 92% 38%,
+      rgba(158, 84, 22, 0.08),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 16% 76%,
+      rgba(88, 96, 77, 0.07),
+      transparent 30rem
+    ),
+    var(--color-cream-50);
+  background-attachment: fixed;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-sans);
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  outline-offset: 4px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold-400);
+}
+
+::selection {
+  color: white;
+  background: var(--color-bronze-800);
+}
+
+@keyframes solaria-settle {
+  from {
+    transform: translate3d(0, 2.25rem, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    main > section {
+      animation: solaria-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 26%;
+    }
+  }
+}
+
+@layer utilities {
+  .container-shell {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .gold-text {
+    color: transparent;
+    background: linear-gradient(
+      110deg,
+      #864910 0%,
+      #d4af37 40%,
+      #fad584 58%,
+      #9e5416 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  .gold-surface {
+    background: linear-gradient(
+      110deg,
+      #864910 0%,
+      #d4af37 42%,
+      #fad584 60%,
+      #9e5416 100%
+    );
+  }
+
+  .eyebrow {
+    color: var(--color-bronze-800);
+    font-size: 0.75rem;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .balance {
+    text-wrap: balance;
+  }
+
+  .pretty {
+    text-wrap: pretty;
+  }
+
+  .paper-grid {
+    background-image:
+      linear-gradient(rgba(134, 73, 16, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(134, 73, 16, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
