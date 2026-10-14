@@ -1,26 +1,12 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
+import { absoluteUrl, indexablePaths } from "~/lib/site";
 
-const paths = [
-  "/",
-  "/chi-siamo/",
-  "/filosofia/",
-  "/trattamenti/",
-  "/epilazione-laser/",
-  "/trattamenti-viso/",
-  "/trattamenti-corpo/",
-  "/estetica-avanzata/",
-  "/ceretta/",
-  "/promozioni/",
-  "/galleria/",
-  "/contatti/",
-];
-
-export const onGet: RequestHandler = ({ text, url, headers }) => {
+export const onGet: RequestHandler = ({ text, headers }) => {
   headers.set("Content-Type", "application/xml; charset=utf-8");
-  const urls = paths
+  const urls = indexablePaths
     .map(
       (path) =>
-        `<url><loc>${new URL(path, url.origin).toString()}</loc><changefreq>${path === "/" ? "weekly" : "monthly"}</changefreq></url>`,
+        `<url><loc>${absoluteUrl(path)}</loc><changefreq>${path === "/" ? "weekly" : "monthly"}</changefreq></url>`,
     )
     .join("");
   text(

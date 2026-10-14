@@ -34,8 +34,9 @@ export default component$(() => (
             <address class="not-italic text-lg leading-8">
               {siteConfig.address.streetAddress}
               <br />
-              {siteConfig.address.postalCode} {siteConfig.address.addressLocality}{" "}
-              ({siteConfig.address.addressRegion})
+              {siteConfig.address.postalCode}{" "}
+              {siteConfig.address.addressLocality} (
+              {siteConfig.address.addressRegion})
             </address>
           </div>
           <a
@@ -227,10 +228,10 @@ export default component$(() => (
         </div>
         <iframe
           title="Mappa di Solaria Beauty Lab a Villanova di Guidonia"
-          src="https://www.google.com/maps?hl=it&q=Via%20G.%20Garibaldi%20125%20A%2C%20Villanova%20di%20Guidonia&z=16&output=embed"
+          src={siteConfig.mapsEmbedUrl}
           width="1200"
           height="480"
-          loading="eager"
+          loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           allowFullscreen
           class="block h-[28rem] w-full border-0"

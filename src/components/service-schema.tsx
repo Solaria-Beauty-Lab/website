@@ -1,6 +1,8 @@
 import { component$ } from "@builder.io/qwik";
 import { StructuredData } from "~/components/structured-data";
-import { absoluteUrl, siteConfig } from "~/lib/site";
+import { euroAmount } from "~/lib/pricing";
+import { businessSchema } from "~/lib/schema";
+import { absoluteUrl } from "~/lib/site";
 
 interface ServiceSchemaProps {
   name: string;
@@ -18,19 +20,8 @@ export const ServiceSchema = component$<ServiceSchemaProps>(
         name,
         description,
         url: absoluteUrl(path),
-        areaServed: siteConfig.areasServed.map((area) => ({
-          "@type": "City",
-          name: area,
-        })),
-        provider: {
-          "@type": "BeautySalon",
-          name: siteConfig.name,
-          telephone: siteConfig.phoneDisplay,
-          address: {
-            "@type": "PostalAddress",
-            ...siteConfig.address,
-          },
-        },
+        areaServed: businessSchema.areaServed,
+        provider: businessSchema,
         ...(offers?.length
           ? {
               hasOfferCatalog: {
@@ -39,10 +30,7 @@ export const ServiceSchema = component$<ServiceSchemaProps>(
                 itemListElement: offers.map((offer) => ({
                   "@type": "Offer",
                   priceCurrency: "EUR",
-                  price: offer.price
-                    .replace(/\./g, "")
-                    .replace(",", ".")
-                    .replace(/[^0-9.]/g, ""),
+                  price: euroAmount(offer.price),
                   itemOffered: {
                     "@type": "Service",
                     name: offer.name,

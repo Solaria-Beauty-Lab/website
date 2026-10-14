@@ -7,7 +7,16 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
+import { euroAmount } from "~/lib/pricing";
+import { businessSchema } from "~/lib/schema";
 import { absoluteUrl, whatsappUrl } from "~/lib/site";
+
+const welcomeOffer = {
+  name: "Solaria Welcome",
+  price: "10 €",
+  description:
+    "Prima esperienza Solaria con un trattamento viso, corpo oppure epilazione laser.",
+} as const;
 
 const methodPaths = [
   {
@@ -100,7 +109,7 @@ export default component$(() => (
               Nuove clienti
             </Badge>
             <h2 class="mt-5 font-display text-4xl md:text-6xl">
-              Solaria Welcome
+              {welcomeOffer.name}
             </h2>
             <p class="mt-5 max-w-2xl text-lg leading-8 text-cream-200/80">
               Non conosci ancora Solaria Beauty Lab? Inizia con un trattamento
@@ -114,7 +123,7 @@ export default component$(() => (
           </div>
           <div class="rounded-3xl border border-gold-300/25 bg-white/5 p-7 text-center backdrop-blur-sm">
             <p class="eyebrow !text-gold-300">Prezzo di benvenuto</p>
-            <p class="mt-3 font-display text-7xl">10 €</p>
+            <p class="mt-3 font-display text-7xl">{welcomeOffer.price}</p>
             <p class="mt-3 text-sm text-cream-200/70">
               Trattamento viso, corpo o epilazione laser
             </p>
@@ -125,7 +134,7 @@ export default component$(() => (
               variant="secondary"
               class="mt-6 w-full"
             >
-              Prenota Solaria Welcome
+              Prenota {welcomeOffer.name}
             </Button>
           </div>
         </div>
@@ -237,13 +246,12 @@ export default component$(() => (
             position: 1,
             item: {
               "@type": "Offer",
-              name: "Solaria Welcome",
-              description:
-                "Prima esperienza Solaria con un trattamento viso, corpo oppure epilazione laser.",
-              price: "10.00",
+              name: welcomeOffer.name,
+              description: welcomeOffer.description,
+              price: euroAmount(welcomeOffer.price),
               priceCurrency: "EUR",
               url: absoluteUrl("/promozioni/"),
-              offeredBy: { "@id": absoluteUrl("/#business") },
+              offeredBy: { "@id": businessSchema["@id"] },
             },
           },
           {
@@ -251,11 +259,11 @@ export default component$(() => (
             position: 2,
             item: {
               "@type": "Offer",
-              name: "Metodo Solaria Mini",
-              price: "199.00",
+              name: methodPaths[0].name,
+              price: euroAmount(methodPaths[0].price),
               priceCurrency: "EUR",
               url: absoluteUrl("/promozioni/#metodo-solaria"),
-              offeredBy: { "@id": absoluteUrl("/#business") },
+              offeredBy: { "@id": businessSchema["@id"] },
             },
           },
         ],
@@ -266,7 +274,6 @@ export default component$(() => (
 
 export const head = createSeo({
   title: "Metodo Solaria e promozioni centro estetico Guidonia",
-  description:
-    "Scopri Solaria Welcome a 10 euro per viso, corpo o epilazione laser e i percorsi Metodo Solaria a Guidonia Montecelio.",
+  description: `Scopri ${welcomeOffer.name} a ${welcomeOffer.price} per viso, corpo o epilazione laser e i percorsi Metodo Solaria a Guidonia Montecelio.`,
   path: "/promozioni/",
 });

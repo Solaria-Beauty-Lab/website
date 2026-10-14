@@ -11,7 +11,7 @@ export interface TreatmentGroup {
 }
 
 export interface BodyProgram {
-  id: string;
+  id: "drenami" | "rimodellami" | "body-rituals" | "solaria-relax";
   title: string;
   subtitle: string;
   description: string;

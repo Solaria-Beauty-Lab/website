@@ -5,56 +5,13 @@ import { SectionHeading } from "~/components/section-heading";
 import { StructuredData } from "~/components/structured-data";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
+import { serviceCatalog as services } from "~/content/services";
 import { createSeo } from "~/lib/seo";
-import { absoluteUrl, siteConfig, whatsappUrl } from "~/lib/site";
+import { optimizedImage } from "~/lib/images";
+import { businessSchema, founderSchema, websiteSchema } from "~/lib/schema";
+import { whatsappUrl } from "~/lib/site";
 
-const services = [
-  {
-    number: "01",
-    title: "Epilazione laser Alma",
-    eyebrow: "Laser",
-    text: "Un percorso personalizzato con laser medico a diodo 808/810, per una riduzione progressiva della ricrescita.",
-    href: "/epilazione-laser/",
-    image: "/images/service-laser-spa.png",
-    surface: "from-[#fffdf8] via-[#fff9ed] to-[#ead0a1]",
-  },
-  {
-    number: "02",
-    title: "Percorsi viso",
-    eyebrow: "Viso",
-    text: "Igiene estetica, trattamenti specifici, V-Shape e protocolli senza aghi scelti in base alla pelle.",
-    href: "/trattamenti-viso/",
-    image: "/images/service-viso-spa.png",
-    surface: "from-[#fffdf9] via-[#fff3ee] to-[#ebcfc4]",
-  },
-  {
-    number: "03",
-    title: "Percorsi corpo",
-    eyebrow: "Corpo",
-    text: "Massaggi, bendaggi, pressoterapia, radiofrequenza e tecnologie abbinate a obiettivi mirati.",
-    href: "/trattamenti-corpo/",
-    image: "/images/service-corpo-spa.png",
-    surface: "from-[#fffdf8] via-[#fff6ed] to-[#e7ceb5]",
-  },
-  {
-    number: "04",
-    title: "Estetica avanzata",
-    eyebrow: "Beauty",
-    text: "Solaria Lashes: laminazione classica e coreana per ciglia e sopracciglia, scultura e colore.",
-    href: "/estetica-avanzata/",
-    image: "/images/service-lashes-spa.png",
-    surface: "from-[#fffdf9] via-[#fff2f5] to-[#eccbd5]",
-  },
-  {
-    number: "05",
-    title: "Ceretta",
-    eyebrow: "Ceretta",
-    text: "Ceretta donna e uomo pensata per rispettare la pelle e lasciarla morbida, ordinata e curata.",
-    href: "/ceretta/",
-    image: "/images/service-ceretta-spa.png",
-    surface: "from-[#fffdf8] via-[#fff5e9] to-[#e8caa9]",
-  },
-];
+const serviceNumber = (index: number) => String(index + 1).padStart(2, "0");
 
 const homeFaq = [
   {
@@ -233,54 +190,68 @@ export default component$(() => (
             class="group relative isolate block min-h-[32rem] overflow-hidden rounded-[1.75rem] bg-black text-cream-100 md:min-h-[42rem]"
           >
             <img
-              src={services[0].image}
+              {...optimizedImage(services[0].homeImage)}
               alt=""
               width="1600"
               height="1000"
               loading="lazy"
+              decoding="async"
+              sizes="(min-width: 768px) 55vw, 100vw"
               class="absolute inset-0 h-full w-full scale-[1.02] object-[20%_center] object-cover opacity-50 transition-transform duration-700 group-hover:scale-[1.06]"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/78 via-black/35 to-black/10" />
             <div class="absolute inset-x-0 bottom-0 p-6 pr-24 md:p-9 md:pr-28">
-              <p class="eyebrow !text-gold-300 text-lg md:text-xl">{services[0].number}</p>
+              <p class="eyebrow !text-gold-300 text-lg md:text-xl">
+                {serviceNumber(0)}
+              </p>
               <h3 class="mt-3 font-display text-5xl leading-[.92] md:text-6xl">
                 {services[0].title}
               </h3>
               <p class="mt-5 max-w-md text-base leading-7 text-cream-100/85 md:text-lg">
-                {services[0].text}
+                {services[0].homeDescription}
               </p>
             </div>
-            <span class="absolute bottom-6 right-6 grid h-12 w-12 place-items-center rounded-full bg-gold-300 text-2xl text-bronze-900 transition-transform duration-300 group-hover:translate-x-1 md:bottom-9 md:right-9" aria-hidden="true">
+            <span
+              class="absolute bottom-6 right-6 grid h-12 w-12 place-items-center rounded-full bg-gold-300 text-2xl text-bronze-900 transition-transform duration-300 group-hover:translate-x-1 md:bottom-9 md:right-9"
+              aria-hidden="true"
+            >
               ↗
             </span>
           </a>
 
           <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2 md:grid-rows-2">
-            {services.slice(1).map((service) => (
+            {services.slice(1).map((service, index) => (
               <a
                 key={service.href}
                 href={service.href}
                 class="group relative isolate min-h-64 overflow-hidden rounded-[1.5rem] bg-black text-cream-100 md:min-h-0"
               >
                 <img
-                  src={service.image}
+                  {...optimizedImage(service.homeImage)}
                   alt=""
                   width="1200"
                   height="900"
                   loading="lazy"
+                  decoding="async"
+                  sizes="(min-width: 768px) 25vw, (min-width: 640px) 50vw, 100vw"
                   class="absolute inset-0 h-full w-full scale-[1.02] object-cover opacity-50 transition-transform duration-700 group-hover:scale-[1.07]"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/78 via-black/35 to-black/10" />
                 <div class="absolute inset-x-0 bottom-0 p-5 pr-16">
-                  <p class="eyebrow !text-gold-300 text-base md:text-lg">{service.number}</p>
+                  <p class="eyebrow !text-gold-300 text-base md:text-lg">
+                    {serviceNumber(index + 1)}
+                  </p>
                   <h3 class="mt-2 font-display text-3xl leading-none">
                     {service.title}
                   </h3>
                   <p class="mt-3 text-sm leading-6 text-cream-100/80">
-                    {service.text}
+                    {service.homeDescription}
                   </p>
                 </div>
-                <span class="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-gold-300 text-xl text-bronze-900 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+                <span
+                  class="absolute bottom-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-gold-300 text-xl text-bronze-900 transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden="true"
+                >
                   ↗
                 </span>
               </a>
@@ -295,7 +266,10 @@ export default component$(() => (
               Il primo passo è capire ciò che ti serve davvero.
             </p>
           </div>
-          <Button href="/contatti/" class="w-fit rounded-xl border-[#7b421f] bg-[#7b421f] px-7 text-cream-100 shadow-none hover:bg-[#5e2f14]">
+          <Button
+            href="/contatti/"
+            class="w-fit rounded-xl border-[#7b421f] bg-[#7b421f] px-7 text-cream-100 shadow-none hover:bg-[#5e2f14]"
+          >
             Prenota un incontro
           </Button>
         </div>
@@ -316,7 +290,10 @@ export default component$(() => (
             Crediamo che la scelta migliore nasca dalla conoscenza: ascoltiamo,
             analizziamo e spieghiamo con chiarezza il percorso più adatto a te.
           </p>
-          <Button href="/filosofia/" class="mt-7 shadow-[0_12px_26px_-14px_rgba(92,49,13,.75)]">
+          <Button
+            href="/filosofia/"
+            class="mt-7 shadow-[0_12px_26px_-14px_rgba(92,49,13,.75)]"
+          >
             Scopri la filosofia Solaria
           </Button>
         </div>
@@ -487,60 +464,7 @@ export default component$(() => (
     <StructuredData
       data={{
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": ["BeautySalon", "LocalBusiness"],
-            "@id": absoluteUrl("/#business"),
-            name: siteConfig.name,
-            alternateName: siteConfig.legalName,
-            description: siteConfig.description,
-            url: absoluteUrl("/"),
-            telephone: siteConfig.phoneDisplay,
-            email: siteConfig.email,
-            contactPoint: [
-              {
-                "@type": "ContactPoint",
-                telephone: siteConfig.phoneDisplay,
-                contactType: "customer service",
-                availableLanguage: "Italian",
-              },
-              {
-                "@type": "ContactPoint",
-                telephone: siteConfig.whatsappDisplay,
-                contactType: "customer service",
-                availableLanguage: "Italian",
-              },
-            ],
-            image: absoluteUrl("/brand/og-solaria-new.jpg"),
-            logo: absoluteUrl("/brand/logo-new-ui.jpg"),
-            address: { "@type": "PostalAddress", ...siteConfig.address },
-            areaServed: siteConfig.areasServed.map((name) => ({
-              "@type": "City",
-              name,
-            })),
-            sameAs: [
-              siteConfig.social.instagram,
-              siteConfig.social.facebook,
-              siteConfig.googleReviewsUrl,
-            ],
-            hasMap: siteConfig.googleReviewsUrl,
-            founder: { "@id": absoluteUrl("/#martina-seguiti") },
-          },
-          {
-            "@type": "Person",
-            "@id": absoluteUrl("/#martina-seguiti"),
-            name: "Martina Seguiti",
-            jobTitle: "Estetista professionale e direttrice tecnica",
-            worksFor: { "@id": absoluteUrl("/#business") },
-          },
-          {
-            "@type": "WebSite",
-            "@id": absoluteUrl("/#website"),
-            name: siteConfig.name,
-            url: absoluteUrl("/"),
-            inLanguage: "it-IT",
-          },
-        ],
+        "@graph": [businessSchema, founderSchema, websiteSchema],
       }}
     />
   </>

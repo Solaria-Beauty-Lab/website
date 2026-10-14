@@ -4,60 +4,8 @@ import { PageHero } from "~/components/page-hero";
 import { SectionHeading } from "~/components/section-heading";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { serviceCatalog as treatments } from "~/content/services";
 import { createSeo } from "~/lib/seo";
-
-const treatments = [
-  {
-    title: "Epilazione laser Alma",
-    subtitle: "Riduzione progressiva della ricrescita",
-    description:
-      "Laser a diodo 808/810 e percorso definito dopo una valutazione di pelle, pelo e zona da trattare.",
-    href: "/epilazione-laser/",
-    accent: "Laser",
-    image: "/images/service-laser.webp",
-    surface: "from-[#fffdf8] via-[#fff9ed] to-[#ead0a1]",
-  },
-  {
-    title: "Percorsi viso",
-    subtitle: "Luminosità, equilibrio e cura",
-    description:
-      "Igiene estetica, Programma Lift e Skin Rituals selezionati in base alle esigenze della pelle.",
-    href: "/trattamenti-viso/",
-    accent: "Viso",
-    image: "/images/service-viso-v2.webp",
-    surface: "from-[#fffdf9] via-[#fff3ee] to-[#ebcfc4]",
-  },
-  {
-    title: "Percorsi corpo",
-    subtitle: "Drenare, rimodellare, ritrovare leggerezza",
-    description:
-      "Massaggi professionali e tecnologie come pressoterapia, radiofrequenza e V-Shape.",
-    href: "/trattamenti-corpo/",
-    accent: "Corpo",
-    image: "/images/service-corpo.webp",
-    surface: "from-[#fffdf8] via-[#fff6ed] to-[#e7ceb5]",
-  },
-  {
-    title: "Estetica avanzata",
-    subtitle: "Definizione, armonia e intensità",
-    description:
-      "Solaria Lashes: laminazione classica e coreana per ciglia e sopracciglia, scultura e colore.",
-    href: "/estetica-avanzata/",
-    accent: "Beauty",
-    image: "/images/service-lashes.webp",
-    surface: "from-[#fffdf9] via-[#fff2f5] to-[#eccbd5]",
-  },
-  {
-    title: "Ceretta donna e uomo",
-    subtitle: "Trattamenti singoli e pacchetti",
-    description:
-      "Listini distinti per viso e corpo, con combinazioni dedicate alle diverse esigenze.",
-    href: "/ceretta/",
-    accent: "Ceretta",
-    image: "/images/service-ceretta.webp",
-    surface: "from-[#fffdf8] via-[#fff5e9] to-[#e8caa9]",
-  },
-];
 
 export default component$(() => (
   <>
@@ -81,7 +29,7 @@ export default component$(() => (
             class={`group relative min-h-[21rem] overflow-hidden border-gold-500/55 bg-gradient-to-r ${item.surface} transition-transform duration-300 hover:-translate-y-1 hover:border-gold-500/85`}
           >
             <img
-              src={item.image}
+              src={item.listingImage}
               alt=""
               width="1600"
               height="1000"
@@ -107,12 +55,16 @@ export default component$(() => (
                 <span class="eyebrow">{item.accent}</span>
               </div>
               <CardTitle class="mt-5 text-3xl md:text-4xl">
-                {item.title}
+                {"listingTitle" in item ? item.listingTitle : item.title}
               </CardTitle>
-              <p class="font-semibold text-bronze-800">{item.subtitle}</p>
+              <p class="font-semibold text-bronze-800">
+                {item.listingSubtitle}
+              </p>
             </CardHeader>
             <CardContent class="relative max-w-[76%] md:max-w-[65%]">
-              <p class="pretty leading-7 text-ink-soft">{item.description}</p>
+              <p class="pretty leading-7 text-ink-soft">
+                {item.listingDescription}
+              </p>
               <Button href={item.href} variant="secondary" class="mt-6">
                 Vedi trattamenti e prezzi
               </Button>

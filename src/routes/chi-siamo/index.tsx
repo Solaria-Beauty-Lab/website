@@ -6,7 +6,8 @@ import { StructuredData } from "~/components/structured-data";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
-import { absoluteUrl } from "~/lib/site";
+import { optimizedImage } from "~/lib/images";
+import { founderSchema } from "~/lib/schema";
 
 const skills = [
   "Epilazione laser a diodo 808/810",
@@ -73,11 +74,13 @@ export default component$(() => (
         <div class="mt-7 grid gap-8 md:grid-cols-2">
           <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] sm:flex-row sm:text-left md:p-8">
             <img
-              src="/images/staff-giulia-corneli.jpeg"
+              {...optimizedImage("staff-giulia-corneli")}
               alt="Giulia Corneli"
               width="1536"
               height="2048"
               loading="lazy"
+              decoding="async"
+              sizes="256px"
               class="h-56 w-56 shrink-0 rounded-full border-[3px] border-gold-400/65 object-cover object-[center_60%] shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64"
             />
             <div>
@@ -89,11 +92,13 @@ export default component$(() => (
           </article>
           <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] sm:flex-row sm:text-left md:p-8">
             <img
-              src="/images/staff-francesca-vicalvi.jpeg"
+              {...optimizedImage("staff-francesca-vicalvi")}
               alt="Francesca Vicalvi"
               width="1536"
               height="2048"
               loading="lazy"
+              decoding="async"
+              sizes="256px"
               class="h-56 w-56 shrink-0 rounded-full border-[3px] border-gold-400/65 object-cover object-[center_60%] shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64"
             />
             <div>
@@ -156,12 +161,7 @@ export default component$(() => (
     <StructuredData
       data={{
         "@context": "https://schema.org",
-        "@type": "Person",
-        "@id": absoluteUrl("/#martina-seguiti"),
-        name: "Martina Seguiti",
-        jobTitle: "Estetista professionale e direttrice tecnica",
-        image: absoluteUrl("/images/gallery-6.avif"),
-        worksFor: { "@id": absoluteUrl("/#business") },
+        ...founderSchema,
         knowsAbout: skills,
       }}
     />

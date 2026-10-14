@@ -6,6 +6,7 @@ import { TreatmentList } from "~/components/treatment-list";
 import { Button } from "~/components/ui/button";
 import { advancedGroups } from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
+import { siteConfig } from "~/lib/site";
 
 export default component$(() => (
   <>
@@ -32,7 +33,7 @@ export default component$(() => (
             valorizzare forma, intensità e armonia dello sguardo.
           </p>
           <Button
-            href="https://www.instagram.com/solariabeautylab/"
+            href={siteConfig.social.instagram}
             target="_blank"
             rel="noreferrer"
             variant="secondary"

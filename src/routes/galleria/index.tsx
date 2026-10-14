@@ -2,120 +2,134 @@ import { component$ } from "@builder.io/qwik";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { PageHero } from "~/components/page-hero";
 import { Button } from "~/components/ui/button";
+import { optimizedImage } from "~/lib/images";
 import { createSeo } from "~/lib/seo";
+import { siteConfig } from "~/lib/site";
 
 const photos = [
   {
-    src: "/images/gallery-esterno.jpeg",
+    image: "gallery-esterno",
     alt: "Ingresso di Solaria Beauty Lab a Villanova di Guidonia",
     class: "md:row-span-2 md:col-span-2",
     label: "Benvenuta in Solaria",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-reception-nuova.jpeg",
+    image: "gallery-time-linea",
+    alt: "Linea professionale TIME Skin Care per il corpo",
+    class: "",
+    label: "Skincare professionale",
+    width: 1200,
+    height: 675,
+  },
+  {
+    image: "gallery-reception-nuova",
     alt: "Reception di Solaria Beauty Lab con insegna luminosa",
     class: "md:row-span-2",
     label: "Il centro",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-martina-time.jpeg",
-    alt: "Martina Seguiti con i prodotti professionali TIME Skin Care",
-    class: "",
-    label: "Il metodo Solaria",
-  },
-  {
-    src: "/images/gallery-team-time.jpeg",
-    alt: "Team Solaria con i trattamenti professionali TIME Skin Care",
-    class: "md:col-span-2",
-    position: "object-[center_18%]",
-    label: "La squadra",
-  },
-  {
-    src: "/images/gallery-laser-alma.jpeg",
+    image: "gallery-laser-alma",
     alt: "Tecnologia professionale Alma per l'epilazione laser",
     class: "",
     position: "object-[center_24%]",
     label: "Epilazione laser Alma",
+    width: 1200,
+    height: 675,
   },
   {
-    src: "/images/gallery-tecnologia-corpo.jpeg",
+    image: "gallery-team-time",
+    alt: "Team Solaria con i trattamenti professionali TIME Skin Care",
+    class: "md:col-span-2",
+    position: "object-[center_18%]",
+    label: "La squadra",
+    width: 1200,
+    height: 675,
+  },
+  {
+    image: "gallery-lashes-due",
+    alt: "Risultato di un trattamento ciglia",
+    class: "",
+    label: "Estetica avanzata",
+    width: 640,
+    height: 853,
+  },
+  {
+    image: "gallery-tecnologia-corpo",
     alt: "Tecnologia professionale per i trattamenti corpo",
     class: "",
     label: "Tecnologie avanzate",
+    width: 1200,
+    height: 675,
   },
   {
-    src: "/images/gallery-trattamento-luce-blu.jpeg",
+    image: "gallery-cabina-tecnologie",
+    alt: "Cabina Solaria dedicata alle tecnologie estetiche avanzate",
+    class: "md:col-span-2",
+    label: "Cabine specializzate",
+    width: 1200,
+    height: 900,
+  },
+  {
+    image: "gallery-martina-time",
+    alt: "Martina Seguiti con i prodotti professionali TIME Skin Care",
+    class: "",
+    label: "Il metodo Solaria",
+    width: 1200,
+    height: 2133,
+  },
+  {
+    image: "gallery-trattamento-luce-blu",
     alt: "Cabina dedicata ai trattamenti con luce blu",
     class: "md:col-span-2",
     position: "object-[center_84%]",
     label: "Rituali di benessere",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-time-linea.jpeg",
-    alt: "Linea professionale TIME Skin Care per il corpo",
-    class: "",
-    label: "Skincare professionale",
-  },
-  {
-    src: "/images/gallery-cabina-tecnologie.jpeg",
-    alt: "Cabina Solaria dedicata alle tecnologie estetiche avanzate",
-    class: "md:col-span-2",
-    label: "Cabine specializzate",
-  },
-  {
-    src: "/images/gallery-cabina-benessere.jpeg",
-    alt: "Cabina Solaria dedicata ai percorsi viso e corpo",
-    class: "md:row-span-2",
-    label: "Percorsi viso & corpo",
-  },
-  {
-    src: "/images/gallery-sala-attesa.jpeg",
+    image: "gallery-sala-attesa",
     alt: "Sala d'attesa di Solaria Beauty Lab",
     class: "md:col-span-2",
     label: "Il tuo tempo",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-sala-attesa-dettaglio.jpeg",
+    image: "gallery-cabina-benessere",
+    alt: "Cabina Solaria dedicata ai percorsi viso e corpo",
+    class: "md:row-span-2",
+    label: "Percorsi viso & corpo",
+    width: 1200,
+    height: 900,
+  },
+  {
+    image: "gallery-sala-attesa-dettaglio",
     alt: "Dettaglio della sala d'attesa di Solaria Beauty Lab",
     class: "",
     label: "Accoglienza",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-cabina-trattamento.jpeg",
+    image: "gallery-cabina-trattamento",
     alt: "Cabina Solaria dedicata ai percorsi laser",
     class: "",
     label: "Cabina laser",
+    width: 1200,
+    height: 900,
   },
   {
-    src: "/images/gallery-lashes-uno.png",
+    image: "gallery-lashes-uno",
     alt: "Dettaglio di extension ciglia realizzate presso Solaria Beauty Lab",
     class: "md:row-span-2",
     label: "Solaria lashes",
+    width: 640,
+    height: 853,
   },
-  {
-    src: "/images/gallery-lashes-due.png",
-    alt: "Risultato di un trattamento ciglia",
-    class: "",
-    label: "Estetica avanzata",
-  },
-];
-
-const orderedPhotos = [
-  photos[0],
-  photos[7],
-  photos[1],
-  photos[4],
-  photos[3],
-  photos[14],
-  photos[5],
-  photos[8],
-  photos[2],
-  photos[6],
-  photos[10],
-  photos[9],
-  photos[11],
-  photos[12],
-  photos[13],
 ];
 
 export default component$(() => (
@@ -144,28 +158,35 @@ export default component$(() => (
         </p>
       </div>
       <div class="grid auto-rows-[17rem] gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {orderedPhotos.map((photo, index) => (
-          <figure
-            key={photo.src}
-          class={`group relative overflow-hidden rounded-3xl bg-cream-100 ${photo.class}`}
-          >
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              width="624"
-              height="1106"
-              loading={index < 2 ? "eager" : "lazy"}
-              decoding="async"
-              class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] ${photo.position ?? ""}`}
-            />
-            <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent px-5 pb-5 pt-16 text-white">
-              <span class="block text-xs font-bold uppercase tracking-[.16em] text-gold-300">
-                {photo.label}
-              </span>
-              <span class="mt-1 block text-sm text-white/85">{photo.alt}</span>
-            </figcaption>
-          </figure>
-        ))}
+        {photos.map((photo) => {
+          const image = optimizedImage(photo.image, photo.width);
+          return (
+            <figure
+              key={photo.image}
+              class={`group relative overflow-hidden rounded-3xl bg-cream-100 ${photo.class}`}
+            >
+              <img
+                src={image.src}
+                srcset={image.srcset}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 768px) 40vw, (min-width: 640px) 50vw, 100vw"
+                class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025] ${photo.position ?? ""}`}
+              />
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/35 to-transparent px-5 pb-5 pt-16 text-white">
+                <span class="block text-xs font-bold uppercase tracking-[.16em] text-gold-300">
+                  {photo.label}
+                </span>
+                <span class="mt-1 block text-sm text-white/85">
+                  {photo.alt}
+                </span>
+              </figcaption>
+            </figure>
+          );
+        })}
       </div>
       <div class="mt-12 rounded-3xl bg-cream-100 p-7 text-center">
         <h2 class="font-display text-3xl">
@@ -176,7 +197,7 @@ export default component$(() => (
           sui canali social ufficiali.
         </p>
         <Button
-          href="https://www.instagram.com/solariabeautylab/"
+          href={siteConfig.social.instagram}
           target="_blank"
           rel="noreferrer"
           variant="secondary"

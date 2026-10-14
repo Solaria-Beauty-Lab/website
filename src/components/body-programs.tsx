@@ -2,7 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import type { BodyProgram } from "~/content/treatments";
 import { cn } from "~/lib/utils";
 
-const ProgramIcon = component$<{ id: string }>(({ id }) => {
+const ProgramIcon = component$<{ id: BodyProgram["id"] }>(({ id }) => {
   const common = "h-8 w-8";
 
   if (id === "drenami") {
@@ -69,8 +69,20 @@ const ProgramIcon = component$<{ id: string }>(({ id }) => {
   );
 });
 
-const programStyles = [
+const programStyles: Record<
+  BodyProgram["id"],
   {
+    section: string;
+    icon: string;
+    accent: string;
+    number: string;
+    item: string;
+    image: string;
+    imagePosition: string;
+    wash: string;
+  }
+> = {
+  drenami: {
     section:
       "border-[#aac2c1]/50 bg-gradient-to-br from-[#eef7f5] via-[#dceceb] to-[#c7dedc] text-ink",
     icon: "border-[#78a7a3]/45 bg-white/70 text-[#2f7771]",
@@ -81,7 +93,7 @@ const programStyles = [
     imagePosition: "center",
     wash: "bg-gradient-to-r from-[#eaf8f7]/90 via-[#d9efed]/72 to-[#b9dcda]/42",
   },
-  {
+  rimodellami: {
     section:
       "border-[#704438] bg-gradient-to-br from-[#211713] via-[#563226] to-[#9a5a3a] text-white",
     icon: "border-gold-300/45 bg-white/10 text-gold-300",
@@ -92,7 +104,7 @@ const programStyles = [
     imagePosition: "center",
     wash: "bg-gradient-to-r from-[#241612]/92 via-[#4d2c22]/82 to-[#8b5438]/62",
   },
-  {
+  "body-rituals": {
     section:
       "border-[#d7b7c8]/45 bg-gradient-to-br from-[#fff8fb] via-[#f3dfe9] to-[#e6c7d6] text-ink",
     icon: "border-[#b47b98]/40 bg-white/65 text-[#884d6b]",
@@ -103,7 +115,7 @@ const programStyles = [
     imagePosition: "right center",
     wash: "bg-gradient-to-r from-[#fff7fb]/94 via-[#f4dfeb]/78 to-[#e8c7d7]/38",
   },
-  {
+  "solaria-relax": {
     section:
       "border-[#c9ae7a]/45 bg-gradient-to-br from-[#fff8e8] via-[#eddfbd] to-[#d8bf8e] text-ink",
     icon: "border-[#9c7842]/35 bg-white/65 text-[#7a5522]",
@@ -114,7 +126,7 @@ const programStyles = [
     imagePosition: "right center",
     wash: "bg-gradient-to-r from-[#fff8e8]/96 via-[#f0dfba]/78 to-[#d4b47a]/32",
   },
-];
+};
 
 export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
   ({ programs }) => (
@@ -129,21 +141,23 @@ export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
             href={`#${program.id}`}
             class={cn(
               "group relative overflow-hidden rounded-2xl border p-5 shadow-[var(--shadow-card)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg",
-              programStyles[index].section,
+              programStyles[program.id].section,
             )}
           >
             <img
-              src={programStyles[index].image}
+              src={programStyles[program.id].image}
               alt=""
               width="1600"
               height="900"
               loading="lazy"
               class="absolute inset-0 h-full w-full object-cover"
-              style={{ objectPosition: programStyles[index].imagePosition }}
+              style={{
+                objectPosition: programStyles[program.id].imagePosition,
+              }}
             />
             <span
               aria-hidden="true"
-              class={cn("absolute inset-0", programStyles[index].wash)}
+              class={cn("absolute inset-0", programStyles[program.id].wash)}
             />
             <span class="relative block text-xs font-bold tracking-[.16em] text-gold-500">
               0{index + 1}
@@ -152,7 +166,7 @@ export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
               <span
                 class={cn(
                   "font-display text-2xl",
-                  index === 1 ? "text-white" : "text-ink",
+                  program.id === "rimodellami" ? "text-white" : "text-ink",
                 )}
               >
                 {program.title}
@@ -161,7 +175,9 @@ export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
                 aria-hidden="true"
                 class={cn(
                   "transition-transform group-hover:translate-y-1",
-                  index === 1 ? "text-gold-300" : "text-bronze-800",
+                  program.id === "rimodellami"
+                    ? "text-gold-300"
+                    : "text-bronze-800",
                 )}
               >
                 ↓
@@ -170,7 +186,9 @@ export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
             <span
               class={cn(
                 "relative mt-1 block text-xs uppercase tracking-wide",
-                index === 1 ? "text-cream-100/70" : "text-ink-soft",
+                program.id === "rimodellami"
+                  ? "text-cream-100/70"
+                  : "text-ink-soft",
               )}
             >
               {program.subtitle}
@@ -181,8 +199,8 @@ export const BodyPrograms = component$<{ programs: BodyProgram[] }>(
 
       <div class="mt-10 grid gap-8">
         {programs.map((program, index) => {
-          const dark = index === 1;
-          const style = programStyles[index];
+          const dark = program.id === "rimodellami";
+          const style = programStyles[program.id];
 
           return (
             <section

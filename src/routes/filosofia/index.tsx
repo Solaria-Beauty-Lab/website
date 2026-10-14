@@ -5,6 +5,8 @@ import { StructuredData } from "~/components/structured-data";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
+import { optimizedImage } from "~/lib/images";
+import { businessSchema } from "~/lib/schema";
 import { absoluteUrl, whatsappUrl } from "~/lib/site";
 
 const methodSteps = [
@@ -115,11 +117,14 @@ export default component$(() => (
           />
           <figure class="relative ml-auto w-[82%] overflow-hidden rounded-[2.25rem] bg-white shadow-[var(--shadow-soft)]">
             <img
-              src="/images/filosofia-martina-ritratto.jpeg"
+              {...optimizedImage("filosofia-martina-ritratto")}
               alt="Martina Seguiti, titolare e direttrice tecnica di Solaria Beauty Lab"
-              width="624"
-              height="1106"
+              width="1200"
+              height="2133"
               loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              sizes="(min-width: 1024px) 40vw, 80vw"
               class="aspect-[4/5] w-full object-cover object-center"
             />
             <figcaption class="absolute bottom-5 right-5 rounded-2xl bg-ink/90 px-4 py-3 text-cream-100 shadow-lg backdrop-blur-sm">
@@ -133,11 +138,13 @@ export default component$(() => (
           </figure>
           <figure class="absolute bottom-0 left-0 w-[42%] overflow-hidden rounded-[1.5rem] border-8 border-cream-100 bg-white shadow-[var(--shadow-card)]">
             <img
-              src="/images/filosofia-time-dren.jpeg"
+              {...optimizedImage("filosofia-time-dren")}
               alt="Prodotti professionali TIME Skin Care"
-              width="624"
-              height="468"
+              width="1200"
+              height="675"
               loading="eager"
+              decoding="async"
+              sizes="(min-width: 1024px) 20vw, 40vw"
               class="aspect-square w-full object-cover object-[17%_45%]"
             />
           </figure>
@@ -163,8 +170,8 @@ export default component$(() => (
         </p>
         <p>
           Ogni persona è unica. Per questo non proponiamo trattamenti
-          standardizzati e non ci fermiamo a ciò che appare in superficie.
-          Prima di iniziare dedichiamo tempo a comprendere le caratteristiche
+          standardizzati e non ci fermiamo a ciò che appare in superficie. Prima
+          di iniziare dedichiamo tempo a comprendere le caratteristiche
           individuali, le necessità e l'origine degli inestetismi.
         </p>
         <p>
@@ -208,9 +215,7 @@ export default component$(() => (
     <section class="overflow-hidden bg-ink py-20 text-cream-100 md:py-28">
       <div class="container-shell grid items-start gap-14 lg:grid-cols-[.78fr_1.22fr]">
         <div class="lg:sticky lg:top-32">
-          <p class="eyebrow !text-gold-300">
-            Analisi estetica strumentale
-          </p>
+          <p class="eyebrow !text-gold-300">Analisi estetica strumentale</p>
           <h2 class="balance mt-4 font-display text-4xl leading-[1.05] md:text-6xl">
             Più informazioni, più precisione.
           </h2>
@@ -221,11 +226,13 @@ export default component$(() => (
           </p>
           <figure class="mt-9 overflow-hidden rounded-[2rem] border border-white/10">
             <img
-              src="/images/filosofia-time-bottles.jpeg"
+              {...optimizedImage("filosofia-time-bottles")}
               alt="Fiale professionali TIME Skin Care"
-              width="624"
-              height="1106"
+              width="1200"
+              height="675"
               loading="lazy"
+              decoding="async"
+              sizes="(min-width: 1024px) 40vw, 100vw"
               class="aspect-[16/10] w-full object-cover object-[center_85%]"
             />
           </figure>
@@ -311,8 +318,10 @@ export default component$(() => (
         url: absoluteUrl("/filosofia/"),
         description:
           "Conoscenza, tecnologia e ascolto alla base dei percorsi estetici personalizzati di Solaria Beauty Lab.",
-          primaryImageOfPage: absoluteUrl("/images/filosofia-martina-ritratto.jpeg"),
-        mainEntity: { "@id": absoluteUrl("/#business") },
+        primaryImageOfPage: absoluteUrl(
+          "/images/optimized/filosofia-martina-ritratto-1200.webp",
+        ),
+        mainEntity: { "@id": businessSchema["@id"] },
         inLanguage: "it-IT",
       }}
     />
