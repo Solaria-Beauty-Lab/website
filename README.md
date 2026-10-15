@@ -15,11 +15,17 @@ pnpm run lint
 
 ## Configurazione e contenuti
 
-- `src/lib/site.ts`: dati del centro, contatti, navigazione e URL pubblico. In assenza di `PUBLIC_SITE_URL`, l'URL canonico è il dominio di produzione Vercel. Impostare `PUBLIC_SITE_URL` (senza barra finale) quando si collega il dominio definitivo.
+- `src/lib/site.ts`: dati del centro, contatti, navigazione e URL pubblico. `https://solariabeautylab.com` è l'unica fonte per URL canoniche, sitemap e dati strutturati, anche nelle anteprime.
 - `src/content/services.ts`: catalogo dei trattamenti usato da homepage e pagina di riepilogo.
 - `src/content/treatments.ts`: dettagli, prezzi e FAQ dei trattamenti.
 - `src/lib/schema.ts`: dati strutturati comuni; `src/lib/seo.ts`: metadata comuni.
 - `src/routes/`: pagine e endpoint per `sitemap.xml` e `robots.txt`.
 - `public/images/` e `public/brand/`: immagini e identità visiva.
 
-La pubblicazione avviene dalla repo GitHub collegata al progetto Vercel `website`. L'adapter e gli script di build sono già configurati; non occorre aggiungerne altri. Prima di impostare un dominio personalizzato, verificare i dati legali e gli orari riportati sul sito.
+La pubblicazione avviene dalla repo GitHub collegata al progetto Vercel `website`. Il dominio ufficiale è `solariabeautylab.com`; `www.solariabeautylab.com` reindirizza al dominio senza `www`. L'adapter e gli script di build sono già configurati; non occorre aggiungerne altri.
+
+Per verificare pagine, metadati, sitemap, robots e immagini dopo una pubblicazione:
+
+```bash
+pnpm run verify:production https://solariabeautylab.com
+```

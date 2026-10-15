@@ -28,9 +28,7 @@ export const siteConfig = {
   googleReviewsUrl: "https://www.google.com/maps?cid=10563502337093552881",
   mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressQuery)}`,
   mapsEmbedUrl: `https://www.google.com/maps?hl=it&q=${encodeURIComponent(addressQuery)}&z=16&output=embed`,
-  url:
-    import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://website-liard-one-warciaxwsg.vercel.app",
+  url: "https://solariabeautylab.com",
 } as const;
 
 export const absoluteUrl = (path = "/") =>

@@ -14,4 +14,4 @@ export const optimizedImage = (name: string, maxWidth = 1200) => {
 };
 
 export const contactIconImage = (name: string) =>
-  `/images/optimized/icon-${name}-96.webp`;
+  `/images/optimized/icon-${name}-gold-96.webp`;

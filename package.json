@@ -20,6 +20,7 @@
     "fmt.check": "prettier --check .",
     "images:optimize": "node scripts/optimize-images.mjs",
     "lint": "eslint \"src/**/*.ts*\"",
+    "verify:production": "node scripts/verify-production.mjs",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik"
