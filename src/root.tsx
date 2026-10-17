@@ -1,6 +1,7 @@
 import { component$, isDev } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
+import { iubenda } from "./lib/iubenda";
 
 import "./global.css";
 
@@ -20,6 +21,19 @@ export default component$(() => {
         <meta name="theme-color" content="#140b05" />
         <meta name="color-scheme" content="light" />
         <link rel="icon" href="/brand/favicon-new.png" type="image/png" />
+        <script
+          dangerouslySetInnerHTML={`window._iub = window._iub || [];
+window._iub.csConfiguration = window._iub.csConfiguration || {};
+window._iub.csConfiguration.callback = {
+  onPreferenceChange: function () {
+    var map = document.querySelector('iframe[data-iubenda-google-map]');
+    if (map && map.src.indexOf('https://www.google.com/maps') === 0) {
+      window.location.reload();
+    }
+  }
+};`}
+        />
+        <script type="text/javascript" src={iubenda.widgetUrl}></script>
         {!isDev && (
           <link
             rel="manifest"

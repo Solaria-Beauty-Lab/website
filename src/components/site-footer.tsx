@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { ContactIcon } from "~/components/contact-icon";
 import { Button } from "~/components/ui/button";
+import { iubenda } from "~/lib/iubenda";
 import { mainNavigation, siteConfig, whatsappUrl } from "~/lib/site";
 
 export const SiteFooter = component$(() => (
@@ -135,12 +136,18 @@ export const SiteFooter = component$(() => (
           © {new Date().getFullYear()} Solaria Beauty Lab
         </p>
         <div class="flex gap-4">
-          <a href="/privacy/" class="hover:text-white">
+          <a href={iubenda.privacyPolicyUrl} class="hover:text-white">
             Privacy
           </a>
-          <a href="/cookie/" class="hover:text-white">
+          <a href={iubenda.cookiePolicyUrl} class="hover:text-white">
             Cookie
           </a>
+          <button
+            type="button"
+            class="iubenda-cs-preferences-link hover:text-white"
+          >
+            Preferenze cookie
+          </button>
           <a href="/accessibilita/" class="hover:text-white">
             Accessibilità
           </a>

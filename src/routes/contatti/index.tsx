@@ -5,6 +5,7 @@ import { PageHero } from "~/components/page-hero";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
+import { iubenda } from "~/lib/iubenda";
 import { siteConfig, whatsappUrl } from "~/lib/site";
 
 const fieldClass =
@@ -175,15 +176,15 @@ export default component$(() => (
             <label class="flex items-start gap-3 text-sm leading-6 text-ink-soft sm:col-span-2">
               <input
                 type="checkbox"
-                name="Consenso privacy"
-                value="accettato"
+                name="Presa visione informativa privacy"
+                value="confermata"
                 required
                 class="mt-1 h-5 w-5 accent-bronze-800"
               />
               <span>
                 Ho letto l'
                 <a
-                  href="/privacy/"
+                  href={iubenda.privacyPolicyUrl}
                   class="font-semibold text-bronze-900 underline underline-offset-4"
                 >
                   informativa privacy
@@ -226,16 +227,43 @@ export default component$(() => (
             Apri in Google Maps ↗
           </Button>
         </div>
-        <iframe
-          title="Mappa di Solaria Beauty Lab a Villanova di Guidonia"
-          src={siteConfig.mapsEmbedUrl}
-          width="1200"
-          height="480"
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          allowFullscreen
-          class="block h-[28rem] w-full border-0"
-        />
+        <div class="relative h-[28rem]">
+          <iframe
+            title="Mappa di Solaria Beauty Lab a Villanova di Guidonia"
+            src="https://cdn.iubenda.com/cookie_solution/empty.html"
+            {...{ suppressedsrc: siteConfig.mapsEmbedUrl }}
+            data-iub-purposes={iubenda.googleMapsPurpose}
+            data-iubenda-google-map="true"
+            width="1200"
+            height="480"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullscreen
+            class="_iub_cs_activate block h-full w-full border-0"
+          />
+          <div
+            class="map-consent-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 bg-cream-100 px-6 text-center"
+          >
+            <p class="max-w-lg text-ink-soft">
+              La mappa Google viene caricata solo se autorizzi i contenuti di
+              terze parti nelle preferenze cookie.
+            </p>
+            <button
+              type="button"
+              class="iubenda-cs-preferences-link font-semibold text-bronze-900 underline underline-offset-4"
+            >
+              Gestisci le preferenze cookie
+            </button>
+            <a
+              href={siteConfig.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="text-sm text-ink-soft underline underline-offset-4"
+            >
+              Apri Google Maps in una nuova scheda ↗
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </>

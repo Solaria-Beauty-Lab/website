@@ -177,6 +177,11 @@ summary {
   }
 }
 
+iframe[data-iubenda-google-map][src^="https://www.google.com/maps"]
+  + .map-consent-placeholder {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
