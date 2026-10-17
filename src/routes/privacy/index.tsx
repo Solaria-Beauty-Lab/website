@@ -15,7 +15,8 @@ export default component$(() => (
       </p>
       <a
         href={iubenda.privacyPolicyUrl}
-        class="mt-6 inline-flex font-semibold text-bronze-900 underline underline-offset-4"
+        class={`${iubenda.policyEmbedClass} mt-6 inline-flex font-semibold text-bronze-900 underline underline-offset-4`}
+        title="Privacy Policy"
       >
         Apri l'informativa privacy su iubenda ↗
       </a>

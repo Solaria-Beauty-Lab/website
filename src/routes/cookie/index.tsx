@@ -16,7 +16,8 @@ export default component$(() => (
       <div class="mt-6 flex flex-wrap gap-5">
         <a
           href={iubenda.cookiePolicyUrl}
-          class="font-semibold text-bronze-900 underline underline-offset-4"
+          class={`${iubenda.policyEmbedClass} font-semibold text-bronze-900 underline underline-offset-4`}
+          title="Cookie Policy"
         >
           Apri la Cookie Policy su iubenda ↗
         </a>

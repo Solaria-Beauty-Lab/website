@@ -52,8 +52,8 @@ export const SiteFooter = component$(() => (
           <address class="not-italic">
             {siteConfig.address.streetAddress}
             <br />
-            {siteConfig.address.postalCode} {siteConfig.address.addressLocality} (
-            {siteConfig.address.addressRegion})
+            {siteConfig.address.postalCode} {siteConfig.address.addressLocality}{" "}
+            ({siteConfig.address.addressRegion})
           </address>
         </a>
         <div class="mt-4 grid gap-2 text-sm">
@@ -132,14 +132,20 @@ export const SiteFooter = component$(() => (
 
     <div class="border-t border-white/10">
       <div class="container-shell flex flex-col gap-3 py-5 text-xs text-cream-200/60 sm:flex-row sm:items-center sm:justify-between">
-        <p>
-          © {new Date().getFullYear()} Solaria Beauty Lab
-        </p>
+        <p>© {new Date().getFullYear()} Solaria Beauty Lab</p>
         <div class="flex gap-4">
-          <a href={iubenda.privacyPolicyUrl} class="hover:text-white">
+          <a
+            href={iubenda.privacyPolicyUrl}
+            class={`${iubenda.policyEmbedClass} hover:text-white`}
+            title="Privacy Policy"
+          >
             Privacy
           </a>
-          <a href={iubenda.cookiePolicyUrl} class="hover:text-white">
+          <a
+            href={iubenda.cookiePolicyUrl}
+            class={`${iubenda.policyEmbedClass} hover:text-white`}
+            title="Cookie Policy"
+          >
             Cookie
           </a>
           <button

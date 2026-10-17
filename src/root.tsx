@@ -34,6 +34,11 @@ window._iub.csConfiguration.callback = {
 };`}
         />
         <script type="text/javascript" src={iubenda.widgetUrl}></script>
+        <script
+          type="text/javascript"
+          src={iubenda.policyEmbedUrl}
+          defer
+        ></script>
         {!isDev && (
           <link
             rel="manifest"

@@ -185,7 +185,8 @@ export default component$(() => (
                 Ho letto l'
                 <a
                   href={iubenda.privacyPolicyUrl}
-                  class="font-semibold text-bronze-900 underline underline-offset-4"
+                  class={`${iubenda.policyEmbedClass} font-semibold text-bronze-900 underline underline-offset-4`}
+                  title="Privacy Policy"
                 >
                   informativa privacy
                 </a>
@@ -241,9 +242,7 @@ export default component$(() => (
             allowFullscreen
             class="_iub_cs_activate block h-full w-full border-0"
           />
-          <div
-            class="map-consent-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 bg-cream-100 px-6 text-center"
-          >
+          <div class="map-consent-placeholder absolute inset-0 flex flex-col items-center justify-center gap-4 bg-cream-100 px-6 text-center">
             <p class="max-w-lg text-ink-soft">
               La mappa Google viene caricata solo se autorizzi i contenuti di
               terze parti nelle preferenze cookie.
