@@ -5,6 +5,7 @@ import { PageHero } from "~/components/page-hero";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { iubenda } from "~/lib/iubenda";
 import { siteConfig, whatsappUrl } from "~/lib/site";
 
@@ -268,9 +269,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Contatti e prenotazioni | Solaria Beauty Lab Guidonia",
-  description:
-    "Contatta Solaria Beauty Lab in Via G. Garibaldi 125 A a Villanova di Guidonia. Telefono, WhatsApp, email e richiesta di consulenza.",
-  path: "/contatti/",
-});
+export const head = createSeo(pages.contacts);

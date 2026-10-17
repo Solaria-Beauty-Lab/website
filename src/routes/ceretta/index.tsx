@@ -6,6 +6,7 @@ import { TreatmentList } from "~/components/treatment-list";
 import { Button } from "~/components/ui/button";
 import { waxingMenGroups, waxingWomenGroups } from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { whatsappUrl } from "~/lib/site";
 
 const allWaxingGroups = [...waxingWomenGroups, ...waxingMenGroups];
@@ -111,9 +112,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Ceretta donna e uomo a Villanova di Guidonia | Solaria",
-  description:
-    "Consulta prezzi e pacchetti ceretta donna e uomo di Solaria Beauty Lab a Villanova di Guidonia.",
-  path: "/ceretta/",
-});
+export const head = createSeo(pages.waxing);

@@ -5,6 +5,7 @@ import { ServiceSchema } from "~/components/service-schema";
 import { TreatmentList } from "~/components/treatment-list";
 import { faceGroups } from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 
 export default component$(() => (
   <>
@@ -79,9 +80,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Trattamenti viso a Villanova di Guidonia | Solaria",
-  description:
-    "Igiene estetica, trattamenti Lift e rituali viso personalizzati presso Solaria Beauty Lab a Guidonia Montecelio. Consulta nomi e prezzi.",
-  path: "/trattamenti-viso/",
-});
+export const head = createSeo(pages.face);

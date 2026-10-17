@@ -7,6 +7,7 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
 import { optimizedImage } from "~/lib/images";
+import { pages } from "~/lib/pages";
 import { founderSchema } from "~/lib/schema";
 
 const skills = [
@@ -28,7 +29,10 @@ export default component$(() => (
       ctaHref="/trattamenti/"
     />
 
-    <section class="container-shell grid items-center gap-14 py-20 md:py-28 lg:grid-cols-[.85fr_1.15fr]">
+    <section
+      id="martina-seguiti"
+      class="container-shell grid items-center gap-14 py-20 md:py-28 lg:grid-cols-[.85fr_1.15fr]"
+    >
       <div class="relative mx-auto max-w-md">
         <div class="absolute -inset-5 -z-10 rounded-[2.5rem] border border-gold-400/25" />
         <img
@@ -168,9 +172,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Martina Seguiti, estetista a Guidonia | Solaria Beauty Lab",
-  description:
-    "Conosci Martina Seguiti, estetista professionale e direttrice tecnica di Solaria Beauty Lab a Guidonia Montecelio.",
-  path: "/chi-siamo/",
-});
+export const head = createSeo(pages.about);

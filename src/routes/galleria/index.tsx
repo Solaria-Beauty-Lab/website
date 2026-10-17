@@ -4,6 +4,7 @@ import { PageHero } from "~/components/page-hero";
 import { Button } from "~/components/ui/button";
 import { optimizedImage } from "~/lib/images";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { siteConfig } from "~/lib/site";
 
 const photos = [
@@ -210,9 +211,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Galleria | Solaria Beauty Lab Guidonia",
-  description:
-    "Scopri immagini reali di Solaria Beauty Lab, di Martina Seguiti e dei trattamenti estetici a Guidonia Montecelio.",
-  path: "/galleria/",
-});
+export const head = createSeo(pages.gallery);

@@ -6,6 +6,7 @@ import { ServiceSchema } from "~/components/service-schema";
 import { Button } from "~/components/ui/button";
 import { bodyPrograms } from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { whatsappUrl } from "~/lib/site";
 
 export default component$(() => (
@@ -94,9 +95,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Trattamenti corpo a Villanova di Guidonia | Solaria",
-  description:
-    "Scopri Drenami, Rimodellami, Body Rituals e Solaria Relax: percorsi corpo, massaggi, pressoterapia e radiofrequenza a Guidonia Montecelio.",
-  path: "/trattamenti-corpo/",
-});
+export const head = createSeo(pages.body);

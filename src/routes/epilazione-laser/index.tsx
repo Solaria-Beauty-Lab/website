@@ -9,6 +9,7 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { laserCombos, laserFaq, laserZones } from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 
 export default component$(() => (
   <>
@@ -243,9 +244,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Epilazione laser a Villanova di Guidonia | Solaria",
-  description:
-    "Scopri tecnologia Alma, aree, prezzi e percorso di epilazione laser a Villanova di Guidonia. Prenota una consulenza con Solaria Beauty Lab.",
-  path: "/epilazione-laser/",
-});
+export const head = createSeo(pages.laser);

@@ -1,13 +1,12 @@
 import { component$ } from "@builder.io/qwik";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { SectionHeading } from "~/components/section-heading";
-import { StructuredData } from "~/components/structured-data";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { optimizedImage } from "~/lib/images";
-import { businessSchema } from "~/lib/schema";
-import { absoluteUrl, whatsappUrl } from "~/lib/site";
+import { whatsappUrl } from "~/lib/site";
 
 const methodSteps = [
   {
@@ -308,29 +307,7 @@ export default component$(() => (
         </Button>
       </div>
     </section>
-
-    <StructuredData
-      data={{
-        "@context": "https://schema.org",
-        "@type": "AboutPage",
-        "@id": absoluteUrl("/filosofia/#page"),
-        name: "La filosofia di Solaria Beauty Lab",
-        url: absoluteUrl("/filosofia/"),
-        description:
-          "Conoscenza, tecnologia e ascolto alla base dei percorsi estetici personalizzati di Solaria Beauty Lab.",
-        primaryImageOfPage: absoluteUrl(
-          "/images/optimized/filosofia-martina-ritratto-1200.webp",
-        ),
-        mainEntity: { "@id": businessSchema["@id"] },
-        inLanguage: "it-IT",
-      }}
-    />
   </>
 ));
 
-export const head = createSeo({
-  title: "La nostra filosofia e il Metodo Solaria | Solaria Beauty Lab",
-  description:
-    "Scopri il Metodo Solaria: ascolto, analisi estetica strumentale e percorsi personalizzati a Guidonia Montecelio.",
-  path: "/filosofia/",
-});
+export const head = createSeo(pages.philosophy);

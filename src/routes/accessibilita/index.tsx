@@ -1,6 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 import { siteConfig } from "~/lib/site";
 
 export default component$(() => (
@@ -39,9 +40,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Accessibilità | Solaria Beauty Lab",
-  description:
-    "Impegno e riferimenti per l'accessibilità del sito Solaria Beauty Lab.",
-  path: "/accessibilita/",
-});
+export const head = createSeo(pages.accessibility);

@@ -1,19 +1,16 @@
 import type { DocumentHead } from "@builder.io/qwik-city";
+import type { SitePage } from "./pages";
+import { serializeJsonLd, webPageSchema } from "./schema";
 import { absoluteUrl, siteConfig } from "./site";
-
-export interface SeoInput {
-  title: string;
-  description: string;
-  path: string;
-}
 
 export const createSeo = ({
   title,
   description,
   path,
-}: SeoInput): DocumentHead => {
+  ...pageDetails
+}: SitePage): DocumentHead => {
   const canonicalUrl = absoluteUrl(path);
-  const socialImage = absoluteUrl("/brand/og-solaria-new.jpg");
+  const socialImage = absoluteUrl(siteConfig.socialImagePath);
 
   return {
     title,
@@ -31,6 +28,7 @@ export const createSeo = ({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:image", content: socialImage },
+      { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Solaria Beauty Lab" },
@@ -38,7 +36,24 @@ export const createSeo = ({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: socialImage },
+      { name: "twitter:image:alt", content: siteConfig.name },
     ],
-    links: [{ rel: "canonical", href: canonicalUrl }],
+    links: [
+      { rel: "canonical", href: canonicalUrl },
+      {
+        rel: "describedby",
+        href: absoluteUrl("/llms.txt"),
+        type: "text/plain",
+      },
+    ],
+    scripts: [
+      {
+        key: "webpage-jsonld",
+        props: { type: "application/ld+json" },
+        script: serializeJsonLd(
+          webPageSchema({ title, description, path, ...pageDetails }),
+        ),
+      },
+    ],
   };
 };

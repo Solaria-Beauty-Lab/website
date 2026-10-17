@@ -8,7 +8,8 @@ import { Button } from "~/components/ui/button";
 import { serviceCatalog as services } from "~/content/services";
 import { createSeo } from "~/lib/seo";
 import { optimizedImage } from "~/lib/images";
-import { businessSchema, founderSchema, websiteSchema } from "~/lib/schema";
+import { pages } from "~/lib/pages";
+import { founderSchema } from "~/lib/schema";
 import { whatsappUrl } from "~/lib/site";
 
 const serviceNumber = (index: number) => String(index + 1).padStart(2, "0");
@@ -464,15 +465,10 @@ export default component$(() => (
     <StructuredData
       data={{
         "@context": "https://schema.org",
-        "@graph": [businessSchema, founderSchema, websiteSchema],
+        ...founderSchema,
       }}
     />
   </>
 ));
 
-export const head = createSeo({
-  title: "Centro estetico a Villanova di Guidonia | Solaria Beauty Lab",
-  description:
-    "Epilazione laser Alma, trattamenti viso, corpo ed estetica avanzata a Villanova di Guidonia. Scopri Solaria Beauty Lab e prenota una consulenza.",
-  path: "/",
-});
+export const head = createSeo(pages.home);

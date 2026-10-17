@@ -12,12 +12,27 @@ const get = async (path, accept) => {
 };
 
 const sitemap = await get("/sitemap.xml");
+if (!sitemap.headers.get("content-type")?.includes("application/xml")) {
+  failures.push("/sitemap.xml: Content-Type non XML");
+}
 const xml = await sitemap.text();
 const locations = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
   ([, location]) => location,
 );
 
 if (!locations.length) failures.push("/sitemap.xml: nessuna pagina elencata");
+if (new Set(locations).size !== locations.length) {
+  failures.push("/sitemap.xml: URL duplicate");
+}
+
+const llms = await get("/llms.txt");
+if (!llms.headers.get("content-type")?.includes("text/plain")) {
+  failures.push("/llms.txt: Content-Type non testuale");
+}
+const llmsText = await llms.text();
+if (!llmsText.startsWith("# Solaria Beauty Lab")) {
+  failures.push("/llms.txt: intestazione assente");
+}
 
 for (const location of locations) {
   const listedUrl = new URL(location);
@@ -29,6 +44,15 @@ for (const location of locations) {
   const response = await get(path, "text/html");
   if (!response.ok) continue;
   const html = await response.text();
+  if (!/<html[^>]*lang="it"/.test(html)) {
+    failures.push(`${path}: lingua italiana assente`);
+  }
+  if (!/<title\b[^>]*>[^<]+<\/title>/.test(html)) {
+    failures.push(`${path}: titolo assente`);
+  }
+  if (!/<meta[^>]*name="description"[^>]*content="[^"]+"/.test(html)) {
+    failures.push(`${path}: meta description assente`);
+  }
   const canonicals = [
     ...html.matchAll(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/g),
   ].map(([, url]) => url);
@@ -41,6 +65,37 @@ for (const location of locations) {
   )?.[1];
   if (ogUrl !== expectedCanonical) {
     failures.push(`${path}: og:url ${ogUrl ?? "assente"}`);
+  }
+  if (!llmsText.includes(expectedCanonical)) {
+    failures.push(`${path}: URL assente in llms.txt`);
+  }
+  if (!html.includes('rel="describedby"')) {
+    failures.push(`${path}: link llms.txt assente`);
+  }
+  const jsonLd = [
+    ...html.matchAll(
+      /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+    ),
+  ]
+    .map(([, value]) => {
+      try {
+        return JSON.parse(value);
+      } catch {
+        failures.push(`${path}: JSON-LD non valido`);
+        return null;
+      }
+    })
+    .filter(Boolean)
+    .flatMap((data) => data["@graph"] ?? [data]);
+  if (!jsonLd.some((data) => data["@id"] === `${expectedCanonical}#webpage`)) {
+    failures.push(`${path}: entità WebPage assente`);
+  }
+  if (
+    !jsonLd.some(
+      (data) => data["@id"] === new URL("/#business", canonicalBase).toString(),
+    )
+  ) {
+    failures.push(`${path}: entità BeautySalon assente`);
   }
 
   for (const [imagePath] of html.matchAll(

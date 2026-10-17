@@ -2,6 +2,7 @@ import { component$ } from "@builder.io/qwik";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { iubenda } from "~/lib/iubenda";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 
 export default component$(() => (
   <>
@@ -32,9 +33,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Cookie | Solaria Beauty Lab",
-  description:
-    "Informazioni sui cookie e sugli strumenti tecnici del sito Solaria Beauty Lab.",
-  path: "/cookie/",
-});
+export const head = createSeo(pages.cookie);

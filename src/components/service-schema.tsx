@@ -17,11 +17,13 @@ export const ServiceSchema = component$<ServiceSchemaProps>(
       data={{
         "@context": "https://schema.org",
         "@type": "Service",
+        "@id": `${absoluteUrl(path)}#service`,
         name,
         description,
         url: absoluteUrl(path),
+        mainEntityOfPage: { "@id": `${absoluteUrl(path)}#webpage` },
         areaServed: businessSchema.areaServed,
-        provider: businessSchema,
+        provider: { "@id": businessSchema["@id"] },
         ...(offers?.length
           ? {
               hasOfferCatalog: {

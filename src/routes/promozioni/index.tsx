@@ -8,6 +8,7 @@ import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import { createSeo } from "~/lib/seo";
 import { euroAmount } from "~/lib/pricing";
+import { pages } from "~/lib/pages";
 import { businessSchema } from "~/lib/schema";
 import { absoluteUrl, whatsappUrl } from "~/lib/site";
 
@@ -272,8 +273,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Metodo Solaria e promozioni centro estetico Guidonia",
-  description: `Scopri ${welcomeOffer.name} a ${welcomeOffer.price} per viso, corpo o epilazione laser e i percorsi Metodo Solaria a Guidonia Montecelio.`,
-  path: "/promozioni/",
-});
+export const head = createSeo(pages.promotions);

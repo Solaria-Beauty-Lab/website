@@ -1,3 +1,5 @@
+import { pages } from "./pages";
+
 const address = {
   streetAddress: "Via G. Garibaldi, 125 A",
   postalCode: "00012",
@@ -13,6 +15,8 @@ export const siteConfig = {
   legalName: "Solaria Beauty Lab",
   description:
     "Centro estetico a Villanova di Guidonia specializzato in epilazione laser Alma, trattamenti viso, corpo ed estetica avanzata.",
+  logoPath: "/brand/logo-new-ui.jpg",
+  socialImagePath: "/brand/og-solaria-new.jpg",
   phoneDisplay: "+39 077 460 9113",
   phoneHref: "+390774609113",
   whatsappDisplay: "+39 351 492 7502",
@@ -37,20 +41,12 @@ export const absoluteUrl = (path = "/") =>
 export const whatsappUrl = `https://wa.me/${siteConfig.whatsappHref.replace("+", "")}?text=Ciao%20Solaria%2C%20vorrei%20informazioni%20su%20un%20trattamento.`;
 
 export const mainNavigation = [
-  { label: "Home", href: "/" },
-  { label: "Trattamenti", href: "/trattamenti/" },
-  { label: "Epilazione laser", href: "/epilazione-laser/" },
-  { label: "Filosofia", href: "/filosofia/" },
-  { label: "Chi siamo", href: "/chi-siamo/" },
-  { label: "Galleria", href: "/galleria/" },
-  { label: "Promozioni", href: "/promozioni/" },
-  { label: "Contatti", href: "/contatti/" },
-] as const;
-
-export const indexablePaths = [
-  ...mainNavigation.map(({ href }) => href),
-  "/trattamenti-viso/",
-  "/trattamenti-corpo/",
-  "/estetica-avanzata/",
-  "/ceretta/",
+  { label: pages.home.label, href: pages.home.path },
+  { label: pages.treatments.label, href: pages.treatments.path },
+  { label: pages.laser.label, href: pages.laser.path },
+  { label: pages.philosophy.label, href: pages.philosophy.path },
+  { label: pages.about.label, href: pages.about.path },
+  { label: pages.gallery.label, href: pages.gallery.path },
+  { label: pages.promotions.label, href: pages.promotions.path },
+  { label: pages.contacts.label, href: pages.contacts.path },
 ] as const;

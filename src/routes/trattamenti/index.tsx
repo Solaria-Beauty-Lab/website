@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { serviceCatalog as treatments } from "~/content/services";
 import { createSeo } from "~/lib/seo";
+import { pages } from "~/lib/pages";
 
 export default component$(() => (
   <>
@@ -94,9 +95,4 @@ export default component$(() => (
   </>
 ));
 
-export const head = createSeo({
-  title: "Trattamenti estetici a Villanova di Guidonia | Solaria",
-  description:
-    "Scopri epilazione laser Alma, percorsi viso e corpo, Solaria Lashes e ceretta presso Solaria Beauty Lab a Guidonia Montecelio.",
-  path: "/trattamenti/",
-});
+export const head = createSeo(pages.treatments);

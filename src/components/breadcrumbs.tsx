@@ -39,6 +39,7 @@ export const Breadcrumbs = component$<{ items: BreadcrumbItem[] }>(
           data={{
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": `${absoluteUrl(allItems[allItems.length - 1].href)}#breadcrumb`,
             itemListElement: allItems.map((item, index) => ({
               "@type": "ListItem",
               position: index + 1,
