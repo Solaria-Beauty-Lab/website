@@ -3,6 +3,26 @@ const canonicalBase = new URL(process.argv[3] ?? base);
 const failures = [];
 const imagePaths = new Set();
 
+const metaContents = (html, attribute, value) =>
+  [
+    ...html.matchAll(
+      new RegExp(
+        `<meta[^>]*${attribute}="${value}"[^>]*content="([^"]+)"[^>]*>`,
+        "g",
+      ),
+    ),
+  ].map(([, content]) => content);
+
+const verifySingleMeta = (html, path, attribute, value) => {
+  const contents = metaContents(html, attribute, value);
+  if (contents.length !== 1 || !contents[0].trim()) {
+    failures.push(
+      `${path}: ${value} ${contents.length === 0 ? "assente" : "duplicato"}`,
+    );
+  }
+  return contents[0];
+};
+
 const get = async (path, accept) => {
   const response = await fetch(new URL(path, base), {
     headers: accept ? { Accept: accept } : undefined,
@@ -50,8 +70,10 @@ for (const location of locations) {
   if (!/<title\b[^>]*>[^<]+<\/title>/.test(html)) {
     failures.push(`${path}: titolo assente`);
   }
-  if (!/<meta[^>]*name="description"[^>]*content="[^"]+"/.test(html)) {
-    failures.push(`${path}: meta description assente`);
+  verifySingleMeta(html, path, "name", "description");
+  const robots = verifySingleMeta(html, path, "name", "robots");
+  if (!robots?.includes("index") || /noindex|nofollow/i.test(robots)) {
+    failures.push(`${path}: direttiva robots non indicizzabile`);
   }
   const canonicals = [
     ...html.matchAll(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/g),
@@ -60,11 +82,25 @@ for (const location of locations) {
   if (canonicals.length !== 1 || canonicals[0] !== expectedCanonical) {
     failures.push(`${path}: canonical ${canonicals.join(", ") || "assente"}`);
   }
-  const ogUrl = html.match(
-    /<meta[^>]*property="og:url"[^>]*content="([^"]+)"/,
-  )?.[1];
+  const ogUrl = verifySingleMeta(html, path, "property", "og:url");
   if (ogUrl !== expectedCanonical) {
     failures.push(`${path}: og:url ${ogUrl ?? "assente"}`);
+  }
+  for (const property of [
+    "og:type",
+    "og:title",
+    "og:description",
+    "og:image",
+  ]) {
+    verifySingleMeta(html, path, "property", property);
+  }
+  for (const name of [
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image",
+  ]) {
+    verifySingleMeta(html, path, "name", name);
   }
   if (!llmsText.includes(expectedCanonical)) {
     failures.push(`${path}: URL assente in llms.txt`);

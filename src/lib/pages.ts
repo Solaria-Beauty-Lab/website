@@ -14,9 +14,9 @@ export const pages = {
   home: {
     label: "Home",
     path: "/",
-    title: "Centro estetico a Villanova di Guidonia | Solaria Beauty Lab",
+    title: "Solaria Beauty Lab | Laser e Centro Estetico a Guidonia",
     description:
-      "Epilazione laser Alma, trattamenti viso, corpo ed estetica avanzata a Villanova di Guidonia. Scopri Solaria Beauty Lab e prenota una consulenza.",
+      "Epilazione laser Alma & trattamenti viso e corpo a Villanova di Guidonia. Scopri Solaria Beauty Lab e prenota il tuo trattamento estetico.",
   },
   treatments: {
     label: "Trattamenti",
