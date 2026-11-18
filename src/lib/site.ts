@@ -27,8 +27,9 @@ export const siteConfig = {
   social: {
     instagram: "https://www.instagram.com/solariabeautylab/",
     facebook: "https://www.facebook.com/profile.php?id=61579694938997",
-    tiktok: "https://www.tiktok.com/@ms_esteticasolaria",
+    tiktok: "https://www.tiktok.com/@solariabeautylab",
   },
+  treatwellUrl: "https://www.treatwell.it/salone/solaria-beauty-lab/",
   googleReviewsUrl: "https://www.google.com/maps?cid=10563502337093552881",
   mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressQuery)}`,
   mapsEmbedUrl: `https://www.google.com/maps?hl=it&q=${encodeURIComponent(addressQuery)}&z=16&output=embed`,

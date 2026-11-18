@@ -32,9 +32,8 @@ export const businessSchema = {
     name,
   })),
   sameAs: [
-    siteConfig.social.instagram,
-    siteConfig.social.facebook,
-    siteConfig.social.tiktok,
+    ...Object.values(siteConfig.social),
+    siteConfig.treatwellUrl,
     siteConfig.googleReviewsUrl,
   ],
   hasMap: siteConfig.googleReviewsUrl,
