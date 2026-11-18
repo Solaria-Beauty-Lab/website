@@ -31,6 +31,8 @@ export const ServiceSchema = component$<ServiceSchemaProps>(
                 name: `Listino ${name}`,
                 itemListElement: offers.map((offer) => ({
                   "@type": "Offer",
+                  url: absoluteUrl(path),
+                  seller: { "@id": businessSchema["@id"] },
                   priceCurrency: "EUR",
                   price: euroAmount(offer.price),
                   itemOffered: {

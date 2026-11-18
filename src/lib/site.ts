@@ -1,12 +1,5 @@
 import { pages } from "./pages";
-
-const address = {
-  streetAddress: "Via G. Garibaldi, 125 A",
-  postalCode: "00012",
-  addressLocality: "Villanova di Guidonia",
-  addressRegion: "RM",
-  addressCountry: "IT",
-} as const;
+import { address } from "../content/location";
 
 const addressQuery = `${address.streetAddress}, ${address.postalCode} ${address.addressLocality}`;
 

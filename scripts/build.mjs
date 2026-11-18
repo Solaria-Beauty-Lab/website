@@ -40,7 +40,12 @@ if (process.platform === "win32") {
 const result = spawnSync(process.execPath, [qwikCli, "build"], {
   cwd: buildRoot,
   stdio: "inherit",
-  env: process.env,
+  // The isolated Windows copy deliberately shares installed dependencies.
+  // Report dependency drift without reinstalling into the source junction.
+  env:
+    buildRoot === root
+      ? process.env
+      : { ...process.env, pnpm_config_verify_deps_before_run: "warn" },
 });
 if (result.error) throw result.error;
 if (result.status !== 0) {

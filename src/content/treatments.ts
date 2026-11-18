@@ -1,3 +1,5 @@
+import { address } from "./location";
+
 export interface PriceItem {
   name: string;
   price: string;
@@ -18,6 +20,14 @@ export interface BodyProgram {
   symbol: string;
   items: PriceItem[];
 }
+
+export const laserConsultations = [
+  { name: "Consulenza classica", price: "Gratuita" },
+  {
+    name: "Consulenza completa con prova ed ecografia del pelo",
+    price: "10 €",
+  },
+] as const;
 
 export const laserZones = [
   {
@@ -388,16 +398,38 @@ export const waxingMenGroups: TreatmentGroup[] = [
   },
 ];
 
+const laserPricesFor = (area: string) => {
+  const zone = laserZones.find((item) =>
+    item.areas.toLowerCase().split(", ").includes(area),
+  );
+  if (!zone) throw new Error(`Zona laser non presente nel listino: ${area}`);
+  return zone.prices
+    .map(([audience, price]) => `${price} ${audience.toLowerCase()}`)
+    .join(" e ");
+};
+
 export const laserFaq = [
+  {
+    question: "La consulenza laser è gratuita?",
+    answer: `Sì, la ${laserConsultations[0].name.toLowerCase()} è gratuita prenotando direttamente con Solaria. La ${laserConsultations[1].name.toLowerCase()} costa ${laserConsultations[1].price}. Su Treatwell può comparire l'importo minimo di 1 € previsto dalla piattaforma: per prenotare la consulenza classica gratuita contatta direttamente il centro.`,
+  },
+  {
+    question: "Quanto costa una seduta di epilazione laser a Guidonia?",
+    answer: `Il prezzo per una singola seduta dipende dalla zona: ${laserZones.map((zone) => `${zone.size}: ${zone.prices.map(([audience, price]) => `${price} ${audience.toLowerCase()}`).join(" e ")}`).join("; ")}. La consulenza conferma la zona da trattare e il preventivo prima dell'acquisto.`,
+  },
+  {
+    question: "Quanto costa il laser all'inguine e alle ascelle?",
+    answer: `Il prezzo dell'inguine parziale è ${laserPricesFor("inguine parziale")} a seduta; per le ascelle è ${laserPricesFor("ascelle")} a seduta. Il prezzo dell'inguine totale è ${laserPricesFor("inguine totale")} a seduta. I pacchetti combinati hanno un listino distinto.`,
+  },
   {
     question: "Come inizia un percorso di epilazione laser?",
     answer:
       "Con una consulenza dedicata alle caratteristiche della pelle e del pelo. Da questa valutazione viene definito il percorso e vengono spiegate preparazione, frequenza e indicazioni tra una seduta e l'altra.",
   },
   {
-    question: "Quale tecnologia viene utilizzata?",
+    question: "Come funziona l'epilazione laser Alma da Solaria?",
     answer:
-      "Il centro utilizza tecnologia Alma e laser a diodo 808/810. L'idoneità al trattamento e i parametri vengono valutati individualmente dall'operatrice.",
+      "Solaria utilizza tecnologia Alma e laser a diodo 808/810 per ridurre progressivamente la ricrescita. Il percorso parte dalla valutazione di pelle, pelo e zona; l'operatrice definisce i parametri e monitora la risposta tra le sedute.",
   },
   {
     question: "Quante sedute sono necessarie?",
@@ -408,5 +440,10 @@ export const laserFaq = [
     question: "Cosa devo fare prima della seduta?",
     answer:
       "Le indicazioni precise vengono fornite in consulenza. Comunica sempre farmaci, variazioni della pelle, esposizione solare recente o altre condizioni rilevanti prima della seduta.",
+  },
+  {
+    question:
+      "Dove si trova Solaria Beauty Lab e come prenoto la consulenza laser?",
+    answer: `Solaria Beauty Lab si trova in ${address.streetAddress}, ${address.postalCode} ${address.addressLocality} (RM). Puoi richiedere la consulenza dalla pagina Contatti, chiamando il centro o usando i pulsanti WhatsApp del sito.`,
   },
 ];

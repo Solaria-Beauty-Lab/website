@@ -11,15 +11,14 @@ import { createSeo } from "~/lib/seo";
 import { optimizedImage } from "~/lib/images";
 import { pages } from "~/lib/pages";
 import { founderSchema } from "~/lib/schema";
-import { whatsappUrl } from "~/lib/site";
+import { siteConfig, whatsappUrl } from "~/lib/site";
 
 const serviceNumber = (index: number) => String(index + 1).padStart(2, "0");
 
 const homeFaq = [
   {
     question: "Dove si trova Solaria Beauty Lab?",
-    answer:
-      "Il centro si trova in Via G. Garibaldi 125 A, a Villanova di Guidonia, ed è facilmente raggiungibile anche da Guidonia Montecelio e Tivoli.",
+    answer: `Il centro si trova in ${siteConfig.address.streetAddress}, a ${siteConfig.address.addressLocality}, ed è facilmente raggiungibile anche da Guidonia Montecelio e Tivoli.`,
   },
   {
     question: "Come scelgo il trattamento più adatto?",

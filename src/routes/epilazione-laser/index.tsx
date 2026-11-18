@@ -7,7 +7,12 @@ import { ServiceSchema } from "~/components/service-schema";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
-import { laserCombos, laserFaq, laserZones } from "~/content/treatments";
+import {
+  laserCombos,
+  laserConsultations,
+  laserFaq,
+  laserZones,
+} from "~/content/treatments";
 import { createSeo } from "~/lib/seo";
 import { pages } from "~/lib/pages";
 
@@ -21,7 +26,7 @@ export default component$(() => (
     />
     <PageHero
       eyebrow="Epilazione laser Alma"
-      title="Meno ricrescita, più libertà nella tua routine."
+      title="Epilazione laser Alma a Villanova di Guidonia."
       description="A Villanova di Guidonia, un percorso con laser a diodo 808/810 definito dopo una consulenza dedicata a pelle, pelo e zona da trattare."
     />
 
@@ -29,7 +34,7 @@ export default component$(() => (
       <div>
         <SectionHeading
           eyebrow="Come funziona"
-          title="Tecnologia Alma, percorso personalizzato."
+          title="Come funziona il laser Alma da Solaria?"
           description="L'energia del laser viene indirizzata al follicolo pilifero per ridurre progressivamente la ricrescita. Parametri e frequenza vengono adattati dopo la valutazione iniziale."
         />
         <div class="mt-8 grid gap-4 sm:grid-cols-3">
@@ -84,16 +89,17 @@ export default component$(() => (
             rispondere alle tue domande prima della prima seduta.
           </p>
           <dl class="mt-5 divide-y divide-white/15 rounded-2xl border border-white/20 bg-[#3a1f12]/35 px-4 backdrop-blur-sm">
-            <div class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-sm text-white/85">Consulenza classica</dt>
-              <dd class="font-semibold text-gold-300">Gratuita</dd>
-            </div>
-            <div class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-sm text-white/85">
-                Consulenza completa con prova ed ecografia del pelo
-              </dt>
-              <dd class="font-semibold text-gold-300">10 €</dd>
-            </div>
+            {laserConsultations.map((consultation) => (
+              <div
+                key={consultation.name}
+                class="flex items-center justify-between gap-4 py-3"
+              >
+                <dt class="text-sm text-white/85">{consultation.name}</dt>
+                <dd class="font-semibold text-gold-300">
+                  {consultation.price}
+                </dd>
+              </div>
+            ))}
           </dl>
           <Button href="/contatti/" variant="secondary" class="mt-6 w-full">
             Prenota la valutazione
@@ -216,9 +222,9 @@ export default component$(() => (
       <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
         <SectionHeading
           eyebrow="FAQ epilazione"
-          title="Le risposte essenziali, senza promesse assolute."
+          title="Prezzi, percorso e prenotazione: le domande sul laser."
         />
-        <Faq items={laserFaq} />
+        <Faq items={laserFaq} about={`${pages.laser.path}#service`} />
       </div>
     </section>
 

@@ -1,4 +1,6 @@
 import type { SitePage } from "./pages";
+import { serviceCatalog } from "../content/services";
+import { staffProfiles } from "../content/team";
 import { absoluteUrl, siteConfig } from "./site";
 
 export const businessSchema = {
@@ -38,6 +40,9 @@ export const businessSchema = {
   ],
   hasMap: siteConfig.googleReviewsUrl,
   founder: { "@id": absoluteUrl("/chi-siamo/#martina-seguiti") },
+  member: staffProfiles.map((person) => ({
+    "@id": absoluteUrl(`/chi-siamo/#${person.id}`),
+  })),
 } as const;
 
 export const founderSchema = {
@@ -59,6 +64,16 @@ export const websiteSchema = {
   publisher: { "@id": businessSchema["@id"] },
 } as const;
 
+export const staffSchemas = staffProfiles.map((person) => ({
+  "@type": "Person",
+  "@id": absoluteUrl(`/chi-siamo/#${person.id}`),
+  name: person.name,
+  description: person.description,
+  url: absoluteUrl(`/chi-siamo/#${person.id}`),
+  image: absoluteUrl(`/images/optimized/${person.image}-1200.webp`),
+  worksFor: { "@id": businessSchema["@id"] },
+}));
+
 export const webPageSchema = (page: SitePage) => {
   const url = absoluteUrl(page.path);
 
@@ -72,6 +87,9 @@ export const webPageSchema = (page: SitePage) => {
     inLanguage: "it-IT",
     isPartOf: { "@id": websiteSchema["@id"] },
     about: { "@id": businessSchema["@id"] },
+    ...(serviceCatalog.some((service) => service.href === page.path)
+      ? { mainEntity: { "@id": `${url}#service` } }
+      : {}),
     ...(page.path === "/"
       ? {}
       : { breadcrumb: { "@id": `${url}#breadcrumb` } }),

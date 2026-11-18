@@ -1,3 +1,5 @@
+import { address } from "../content/location";
+
 type PageType = "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
 
 export interface SitePage {
@@ -29,9 +31,9 @@ export const pages = {
   laser: {
     label: "Epilazione laser",
     path: "/epilazione-laser/",
-    title: "Epilazione laser a Villanova di Guidonia | Solaria",
+    title: "Epilazione laser Alma a Guidonia | Solaria Beauty Lab",
     description:
-      "Scopri tecnologia Alma, aree, prezzi e percorso di epilazione laser a Villanova di Guidonia. Prenota una consulenza con Solaria Beauty Lab.",
+      "Epilazione laser Alma a Villanova di Guidonia: prezzi per zona, percorso e FAQ. Prenota direttamente la consulenza classica gratuita da Solaria Beauty Lab.",
   },
   face: {
     label: "Trattamenti viso",
@@ -99,8 +101,7 @@ export const pages = {
     label: "Contatti",
     path: "/contatti/",
     title: "Contatti e prenotazioni | Solaria Beauty Lab Guidonia",
-    description:
-      "Contatta Solaria Beauty Lab in Via G. Garibaldi 125 A a Villanova di Guidonia. Telefono, WhatsApp, email e richiesta di consulenza.",
+    description: `Contatta Solaria Beauty Lab in ${address.streetAddress} a ${address.addressLocality}. Telefono, WhatsApp, email e richiesta di consulenza.`,
     type: "ContactPage",
   },
   privacy: {
