@@ -1,6 +1,7 @@
 import type { RequestHandler } from "@builder.io/qwik-city";
 import { pages } from "~/lib/pages";
 import { absoluteUrl, siteConfig } from "~/lib/site";
+import { founderSchema } from "~/lib/schema";
 
 const entry = (label: string, path: string, description: string) =>
   `- [${label}](${absoluteUrl(path)}): ${description}`;
@@ -12,6 +13,20 @@ export const onGet: RequestHandler = ({ text }) => {
     `> ${pages.home.description}`,
     "",
     "Solaria Beauty Lab è un centro estetico a Villanova di Guidonia (RM), Italia. Le pagine del sito sono la fonte aggiornata per servizi, prezzi, condizioni e contatti. Le informazioni non sostituiscono una consulenza individuale e non promettono risultati garantiti.",
+    "",
+    "## Identità e canali ufficiali",
+    `Sito ufficiale: ${absoluteUrl("/")}`,
+    `Indirizzo: ${siteConfig.address.streetAddress}, ${siteConfig.address.postalCode} ${siteConfig.address.addressLocality} (${siteConfig.address.addressRegion}), ${siteConfig.address.addressCountry}.`,
+    `Telefono: ${siteConfig.phoneHref}. WhatsApp: ${siteConfig.whatsappHref}. Email: ${siteConfig.email}.`,
+    `Fondatrice: ${founderSchema.name}. Ruolo: ${founderSchema.jobTitle}. Profilo: ${founderSchema["@id"]}`,
+    entry(
+      "Prenotazioni Treatwell",
+      siteConfig.treatwellUrl,
+      "Profilo ufficiale del centro con servizi e prenotazioni.",
+    ),
+    ...Object.entries(siteConfig.social).map(([name, url]) =>
+      entry(name, url, "Profilo ufficiale di Solaria Beauty Lab."),
+    ),
     "",
     "## Servizi",
     entry(

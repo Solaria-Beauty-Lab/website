@@ -1,13 +1,41 @@
-import type { SitePage } from "./pages";
+import { pages, type SitePage } from "./pages";
 import { serviceCatalog } from "../content/services";
 import { staffProfiles } from "../content/team";
+import { galleryPhotos } from "../content/gallery";
+import { siteImages, type SeoImage } from "../content/media";
+import { optimizedImage } from "./images";
 import { absoluteUrl, siteConfig } from "./site";
+
+export const imageSchema = (image: SeoImage, id: string) => ({
+  "@type": "ImageObject",
+  "@id": absoluteUrl(id),
+  url: absoluteUrl(image.path),
+  contentUrl: absoluteUrl(image.path),
+  caption: image.alt,
+  width: image.width,
+  height: image.height,
+  encodingFormat: image.type,
+});
+
+export const logoSchema = imageSchema(siteImages.logo, "/#logo");
+
+export const bookingAction = {
+  "@type": "ScheduleAction",
+  name: "Prenota un trattamento da Solaria Beauty Lab",
+  target: {
+    "@type": "EntryPoint",
+    urlTemplate: siteConfig.treatwellUrl,
+    actionPlatform: [
+      "https://schema.org/DesktopWebPlatform",
+      "https://schema.org/MobileWebPlatform",
+    ],
+  },
+} as const;
 
 export const businessSchema = {
   "@type": "BeautySalon",
   "@id": absoluteUrl("/#business"),
   name: siteConfig.name,
-  alternateName: siteConfig.legalName,
   description: siteConfig.description,
   url: absoluteUrl("/"),
   telephone: siteConfig.phoneHref,
@@ -26,8 +54,14 @@ export const businessSchema = {
       availableLanguage: "Italian",
     },
   ],
-  image: absoluteUrl(siteConfig.socialImagePath),
-  logo: absoluteUrl(siteConfig.logoPath),
+  image: [
+    absoluteUrl(siteImages.reception.path),
+    absoluteUrl(siteImages.social.path),
+  ],
+  logo: { "@id": logoSchema["@id"] },
+  mainEntityOfPage: { "@id": absoluteUrl("/#webpage") },
+  hasOfferCatalog: { "@id": absoluteUrl("/trattamenti/#catalog") },
+  potentialAction: bookingAction,
   address: { "@type": "PostalAddress", ...siteConfig.address },
   areaServed: siteConfig.areasServed.map((name) => ({
     "@type": "City",
@@ -51,7 +85,7 @@ export const founderSchema = {
   name: "Martina Seguiti",
   jobTitle: "Estetista professionale e direttrice tecnica",
   url: absoluteUrl("/chi-siamo/"),
-  image: absoluteUrl("/images/gallery-6.avif"),
+  image: absoluteUrl(siteImages.founder.path),
   worksFor: { "@id": businessSchema["@id"] },
 } as const;
 
@@ -62,7 +96,23 @@ export const websiteSchema = {
   url: absoluteUrl("/"),
   inLanguage: "it-IT",
   publisher: { "@id": businessSchema["@id"] },
+  about: { "@id": businessSchema["@id"] },
 } as const;
+
+export const serviceCatalogSchema = {
+  "@type": "OfferCatalog",
+  "@id": absoluteUrl("/trattamenti/#catalog"),
+  name: "Trattamenti Solaria Beauty Lab",
+  url: absoluteUrl("/trattamenti/"),
+  numberOfItems: serviceCatalog.length,
+  itemListElement: serviceCatalog.map((service) => ({
+    "@type": "Offer",
+    name: service.title,
+    url: absoluteUrl(service.href),
+    seller: { "@id": businessSchema["@id"] },
+    itemOffered: { "@id": `${absoluteUrl(service.href)}#service` },
+  })),
+};
 
 export const staffSchemas = staffProfiles.map((person) => ({
   "@type": "Person",
@@ -70,9 +120,27 @@ export const staffSchemas = staffProfiles.map((person) => ({
   name: person.name,
   description: person.description,
   url: absoluteUrl(`/chi-siamo/#${person.id}`),
-  image: absoluteUrl(`/images/optimized/${person.image}-1200.webp`),
+  image: absoluteUrl(optimizedImage(person.image).src),
   worksFor: { "@id": businessSchema["@id"] },
 }));
+
+const pageMainEntities: Record<string, readonly string[]> = {
+  [pages.home.path]: [businessSchema["@id"]],
+  [pages.contacts.path]: [businessSchema["@id"]],
+  [pages.about.path]: [
+    founderSchema["@id"],
+    ...staffSchemas.map((person) => person["@id"]),
+  ],
+  [pages.treatments.path]: [serviceCatalogSchema["@id"]],
+  [pages.gallery.path]: [absoluteUrl(`${pages.gallery.path}#gallery`)],
+  [pages.promotions.path]: [absoluteUrl(`${pages.promotions.path}#offers`)],
+  ...Object.fromEntries(
+    serviceCatalog.map((service) => [
+      service.href,
+      [`${absoluteUrl(service.href)}#service`],
+    ]),
+  ),
+};
 
 export const webPageSchema = (page: SitePage) => {
   const url = absoluteUrl(page.path);
@@ -86,21 +154,52 @@ export const webPageSchema = (page: SitePage) => {
     description: page.description,
     inLanguage: "it-IT",
     isPartOf: { "@id": websiteSchema["@id"] },
+    publisher: { "@id": businessSchema["@id"] },
     about: { "@id": businessSchema["@id"] },
-    ...(serviceCatalog.some((service) => service.href === page.path)
-      ? { mainEntity: { "@id": `${url}#service` } }
+    ...(pageMainEntities[page.path]
+      ? { mainEntity: pageMainEntities[page.path].map((id) => ({ "@id": id })) }
       : {}),
     ...(page.path === "/"
       ? {}
       : { breadcrumb: { "@id": `${url}#breadcrumb` } }),
-    ...(page.image
-      ? {
-          primaryImageOfPage: {
-            "@type": "ImageObject",
-            url: absoluteUrl(page.image),
-          },
-        }
-      : {}),
+    primaryImageOfPage: { "@id": `${url}#primaryimage` },
+  };
+};
+
+export const pageGraph = (page: SitePage) => {
+  const url = absoluteUrl(page.path);
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      webPageSchema(page),
+      imageSchema(page.image ?? siteImages.social, `${page.path}#primaryimage`),
+      ...(page.path === pages.home.path || page.path === pages.treatments.path
+        ? [serviceCatalogSchema]
+        : []),
+      ...(page.path === pages.gallery.path
+        ? [
+            {
+              "@type": "ImageGallery",
+              "@id": `${url}#gallery`,
+              name: pages.gallery.label,
+              url,
+              isPartOf: { "@id": `${url}#webpage` },
+              about: { "@id": businessSchema["@id"] },
+              image: galleryPhotos.map((photo) => ({
+                "@type": "ImageObject",
+                "@id": `${url}#${photo.image}`,
+                contentUrl: absoluteUrl(
+                  optimizedImage(photo.image, photo.width).src,
+                ),
+                caption: photo.alt,
+                encodingFormat: "image/webp",
+                representativeOfPage: false,
+                about: { "@id": businessSchema["@id"] },
+              })),
+            },
+          ]
+        : []),
+    ],
   };
 };
 

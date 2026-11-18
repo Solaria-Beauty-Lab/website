@@ -359,8 +359,10 @@ export default component$(() => {
       data={{
         "@context": "https://schema.org",
         "@type": "ItemList",
+        "@id": absoluteUrl("/promozioni/#offers"),
         name: "Promozioni e percorsi Metodo Solaria",
         url: absoluteUrl("/promozioni/"),
+        mainEntityOfPage: { "@id": absoluteUrl("/promozioni/#webpage") },
         itemListElement: [
           {
             "@type": "ListItem",

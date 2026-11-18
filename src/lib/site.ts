@@ -5,11 +5,8 @@ const addressQuery = `${address.streetAddress}, ${address.postalCode} ${address.
 
 export const siteConfig = {
   name: "Solaria Beauty Lab",
-  legalName: "Solaria Beauty Lab",
   description:
     "Centro estetico a Villanova di Guidonia specializzato in epilazione laser Alma, trattamenti viso, corpo ed estetica avanzata.",
-  logoPath: "/brand/logo-new-ui.jpg",
-  socialImagePath: "/brand/og-solaria-new.jpg",
   phoneDisplay: "+39 077 460 9113",
   phoneHref: "+390774609113",
   whatsappDisplay: "+39 351 492 7502",

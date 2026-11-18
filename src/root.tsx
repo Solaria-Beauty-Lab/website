@@ -3,7 +3,7 @@ import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
 import { StructuredData } from "./components/structured-data";
 import { iubenda } from "./lib/iubenda";
-import { businessSchema, websiteSchema } from "./lib/schema";
+import { businessSchema, logoSchema, websiteSchema } from "./lib/schema";
 
 import "./global.css";
 
@@ -26,7 +26,7 @@ export default component$(() => {
         <StructuredData
           data={{
             "@context": "https://schema.org",
-            "@graph": [businessSchema, websiteSchema],
+            "@graph": [businessSchema, websiteSchema, logoSchema],
           }}
         />
         <script

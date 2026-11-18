@@ -1,4 +1,5 @@
 import { address } from "../content/location";
+import { serviceImages, siteImages, type SeoImage } from "../content/media";
 
 type PageType = "WebPage" | "AboutPage" | "ContactPage" | "CollectionPage";
 
@@ -8,7 +9,7 @@ export interface SitePage {
   title: string;
   description: string;
   type?: PageType;
-  image?: string;
+  image?: SeoImage;
 }
 
 // Canonical page inventory shared by metadata, sitemap, navigation, and llms.txt.
@@ -27,10 +28,12 @@ export const pages = {
     description:
       "Scopri epilazione laser Alma, percorsi viso e corpo, Solaria Lashes e ceretta presso Solaria Beauty Lab a Guidonia Montecelio.",
     type: "CollectionPage",
+    image: siteImages.reception,
   },
   laser: {
     label: "Epilazione laser",
     path: "/epilazione-laser/",
+    image: serviceImages.laser,
     title: "Epilazione laser Alma a Guidonia | Solaria Beauty Lab",
     description:
       "Epilazione laser Alma a Villanova di Guidonia: prezzi per zona, percorso e FAQ. Prenota direttamente la consulenza classica gratuita da Solaria Beauty Lab.",
@@ -38,6 +41,7 @@ export const pages = {
   face: {
     label: "Trattamenti viso",
     path: "/trattamenti-viso/",
+    image: serviceImages.face,
     title: "Trattamenti viso a Villanova di Guidonia | Solaria",
     description:
       "Igiene estetica, trattamenti Lift e rituali viso personalizzati presso Solaria Beauty Lab a Guidonia Montecelio. Consulta nomi e prezzi.",
@@ -45,6 +49,7 @@ export const pages = {
   body: {
     label: "Trattamenti corpo",
     path: "/trattamenti-corpo/",
+    image: serviceImages.body,
     title: "Trattamenti corpo a Villanova di Guidonia | Solaria",
     description:
       "Scopri Drenami, Rimodellami, Body Rituals e Solaria Relax: percorsi corpo, massaggi, pressoterapia e radiofrequenza a Guidonia Montecelio.",
@@ -52,6 +57,7 @@ export const pages = {
   advanced: {
     label: "Estetica avanzata",
     path: "/estetica-avanzata/",
+    image: serviceImages.advanced,
     title: "Estetica avanzata a Guidonia | Solaria Beauty Lab",
     description:
       "Laminazione ciglia e sopracciglia classica o coreana e scultura con colore a Villanova di Guidonia. Consulta il listino Solaria Lashes.",
@@ -59,6 +65,7 @@ export const pages = {
   waxing: {
     label: "Ceretta",
     path: "/ceretta/",
+    image: serviceImages.waxing,
     title: "Ceretta donna e uomo a Villanova di Guidonia | Solaria",
     description:
       "Consulta prezzi e pacchetti ceretta donna e uomo di Solaria Beauty Lab a Villanova di Guidonia.",
@@ -70,7 +77,7 @@ export const pages = {
     description:
       "Scopri il Metodo Solaria: ascolto, analisi estetica strumentale e percorsi personalizzati a Guidonia Montecelio.",
     type: "AboutPage",
-    image: "/images/optimized/filosofia-martina-ritratto-1200.webp",
+    image: siteImages.philosophy,
   },
   about: {
     label: "Chi siamo",
@@ -79,11 +86,12 @@ export const pages = {
     description:
       "Conosci Martina Seguiti, estetista professionale e direttrice tecnica di Solaria Beauty Lab a Guidonia Montecelio.",
     type: "AboutPage",
-    image: "/images/gallery-6.avif",
+    image: siteImages.founder,
   },
   gallery: {
     label: "Galleria",
     path: "/galleria/",
+    image: siteImages.reception,
     title: "Galleria | Solaria Beauty Lab Guidonia",
     description:
       "Scopri immagini reali di Solaria Beauty Lab, di Martina Seguiti e dei trattamenti estetici a Guidonia Montecelio.",
@@ -100,6 +108,7 @@ export const pages = {
   contacts: {
     label: "Contatti",
     path: "/contatti/",
+    image: siteImages.reception,
     title: "Contatti e prenotazioni | Solaria Beauty Lab Guidonia",
     description: `Contatta Solaria Beauty Lab in ${address.streetAddress} a ${address.addressLocality}. Telefono, WhatsApp, email e richiesta di consulenza.`,
     type: "ContactPage",

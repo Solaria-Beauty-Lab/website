@@ -12,11 +12,11 @@ export const RouterHead = component$(() => {
       <title>{head.title}</title>
 
       {head.meta.map((m) => (
-        <meta key={m.key} {...m} />
+        <meta key={m.key ?? m.name ?? m.property} {...m} />
       ))}
 
       {head.links.map((l) => (
-        <link key={l.key} {...l} />
+        <link key={l.key ?? `${l.rel}:${l.href}`} {...l} />
       ))}
 
       {head.styles.map((s) => (
