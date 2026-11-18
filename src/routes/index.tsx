@@ -5,6 +5,7 @@ import { SectionHeading } from "~/components/section-heading";
 import { StructuredData } from "~/components/structured-data";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
+import { BlackFridayPopup } from "~/components/black-friday-popup";
 import { serviceCatalog as services } from "~/content/services";
 import { createSeo } from "~/lib/seo";
 import { optimizedImage } from "~/lib/images";
@@ -34,6 +35,7 @@ const homeFaq = [
 
 export default component$(() => (
   <>
+    <BlackFridayPopup />
     <section class="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_88%_26%,rgba(222,187,125,.34),transparent_31%),radial-gradient(ellipse_at_76%_84%,rgba(201,151,83,.14),transparent_28%),linear-gradient(108deg,#fffdf8_0%,#fffaf0_45%,#f5e6cb_74%,#e8c98e_100%)] pb-16 pt-10 md:pb-24 md:pt-16">
       <div
         aria-hidden="true"

@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useSignal } from "@builder.io/qwik";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { PageHero } from "~/components/page-hero";
 import { SectionHeading } from "~/components/section-heading";
@@ -6,6 +6,7 @@ import { StructuredData } from "~/components/structured-data";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
+import { optimizedImage } from "~/lib/images";
 import { createSeo } from "~/lib/seo";
 import { euroAmount } from "~/lib/pricing";
 import { pages } from "~/lib/pages";
@@ -87,8 +88,38 @@ const methodStyles = [
   },
 ];
 
-export default component$(() => (
-  <>
+const blackFridayPosters = [
+  {
+    image: "black-friday-rituali-1",
+    alt: "Locandina Black Friday per Candle Massage e Rituale Hummun",
+  },
+  {
+    image: "black-friday-laser",
+    alt: "Locandina Black Friday per l'epilazione laser",
+  },
+  {
+    image: "black-friday-corpo",
+    alt: "Locandina Black Friday per i trattamenti corpo",
+  },
+  {
+    image: "black-friday-viso",
+    alt: "Locandina Black Friday per i trattamenti viso",
+  },
+  {
+    image: "black-friday-laminazione",
+    alt: "Locandina Black Friday per laminazione ciglia e sopracciglia",
+  },
+  {
+    image: "black-friday-pressoterapia",
+    alt: "Locandina Black Friday per pressoterapia con infrarossi",
+  },
+];
+
+export default component$(() => {
+  const selectedPoster = useSignal<(typeof blackFridayPosters)[number] | null>(null);
+
+  return (
+    <>
     <Breadcrumbs items={[{ label: "Promozioni", href: "/promozioni/" }]} />
     <PageHero
       eyebrow="Promozioni e percorsi Solaria"
@@ -97,6 +128,95 @@ export default component$(() => (
       ctaLabel="Parla con noi"
       ctaHref={whatsappUrl}
     />
+
+    <section class="bg-[#17120f] py-20 text-cream-100 md:py-28">
+      <div class="container-shell">
+        <div class="grid items-end gap-7 lg:grid-cols-[1fr_auto]">
+          <div>
+            <Badge class="border-gold-300/30 bg-gold-300/10 !text-gold-300">
+              Promo Flash · Posti limitati
+            </Badge>
+            <h2 class="mt-5 font-display text-5xl leading-[.95] md:text-7xl">
+              Black Friday<br />
+              <span class="text-gold-300">Solaria</span>
+            </h2>
+          </div>
+          <p class="max-w-md text-lg leading-8 text-cream-200/80 lg:text-right">
+            Una selezione di rituali, trattamenti viso e corpo, epilazione
+            laser e laminazione pensata per il Black Friday.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {blackFridayPosters.map((poster) => (
+            <article
+              key={poster.image}
+              class="group overflow-hidden rounded-[2rem] border border-gold-300/25 bg-cream-100 p-2 shadow-[0_24px_60px_-32px_rgba(0,0,0,.8)]"
+            >
+              <button
+                type="button"
+                onClick$={() => (selectedPoster.value = poster)}
+                class="relative block w-full overflow-hidden rounded-[1.5rem] text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-300"
+                aria-label={`Ingrandisci: ${poster.alt}`}
+              >
+                <img
+                  {...optimizedImage(poster.image)}
+                  alt={poster.alt}
+                  width="1080"
+                  height="1350"
+                  loading="lazy"
+                  decoding="async"
+                  sizes="(min-width: 1024px) 360px, (min-width: 640px) 45vw, 100vw"
+                  class="aspect-[4/5] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                />
+                <span class="absolute inset-x-4 bottom-4 rounded-full bg-black/75 px-4 py-2 text-center text-xs font-bold tracking-wide text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+                  Tocca per ingrandire
+                </span>
+              </button>
+            </article>
+          ))}
+        </div>
+
+        {selectedPoster.value && (
+          <div
+            class="fixed inset-0 z-[130] grid place-items-center bg-black/85 p-4 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedPoster.value.alt}
+          >
+            <div class="relative max-h-[92vh] w-full max-w-2xl">
+              <button
+                type="button"
+                onClick$={() => (selectedPoster.value = null)}
+                class="absolute -right-1 -top-1 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/30 bg-ink text-2xl text-white shadow-lg transition hover:bg-gold-300 hover:text-bronze-900"
+                aria-label="Chiudi la locandina"
+              >
+                ×
+              </button>
+              <img
+                {...optimizedImage(selectedPoster.value.image)}
+                alt={selectedPoster.value.alt}
+                width="1080"
+                height="1350"
+                decoding="async"
+                class="max-h-[92vh] w-full rounded-[1.75rem] object-contain shadow-[0_28px_80px_rgba(0,0,0,.65)]"
+              />
+            </div>
+          </div>
+        )}
+
+        <div class="mt-10 flex flex-col items-start justify-between gap-5 rounded-[1.75rem] border border-gold-300/20 bg-white/5 p-6 sm:flex-row sm:items-center md:px-8">
+          <p class="max-w-2xl text-sm leading-6 text-cream-200/80">
+            Le promozioni sono disponibili per un periodo limitato. Scrivici
+            per verificare disponibilità e scegliere la proposta più adatta a
+            te.
+          </p>
+          <Button href={whatsappUrl} target="_blank" rel="noreferrer" variant="secondary" class="shrink-0">
+            Richiedi la promo
+          </Button>
+        </div>
+      </div>
+    </section>
 
     <section class="container-shell py-20 md:py-28">
       <div class="relative overflow-hidden rounded-[2.5rem] bg-ink px-6 py-12 text-cream-100 shadow-[var(--shadow-soft)] md:px-12 md:py-16">
@@ -271,6 +391,7 @@ export default component$(() => (
       }}
     />
   </>
-));
+  );
+});
 
 export const head = createSeo(pages.promotions);

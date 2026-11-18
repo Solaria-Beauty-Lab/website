@@ -6,7 +6,7 @@ import { mainNavigation, siteConfig, whatsappUrl } from "~/lib/site";
 
 export const SiteFooter = component$(() => (
   <footer class="mt-24 border-t border-gold-400/20 bg-ink text-cream-100">
-    <div class="container-shell grid gap-10 py-14 md:grid-cols-[1.05fr_.7fr_.9fr_.95fr]">
+    <div class="container-shell grid gap-10 py-14 md:grid-cols-2 xl:grid-cols-[1.05fr_.7fr_.9fr_.95fr]">
       <div>
         <img
           src="/brand/logo-new-ui.jpg"

@@ -76,17 +76,19 @@ export default component$(() => (
       <div class="border-t border-gold-400/35 pt-10 md:pt-12">
         <p class="eyebrow">Il team Solaria</p>
         <div class="mt-7 grid gap-8 md:grid-cols-2">
-          <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] sm:flex-row sm:text-left md:p-8">
-            <img
-              {...optimizedImage("staff-giulia-corneli")}
-              alt="Giulia Corneli"
-              width="1536"
-              height="2048"
-              loading="lazy"
-              decoding="async"
-              sizes="256px"
-              class="h-56 w-56 shrink-0 rounded-full border-[3px] border-gold-400/65 object-cover object-[center_60%] shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64"
-            />
+          <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] lg:flex-row lg:text-left md:p-8">
+            <div class="h-56 w-56 shrink-0 overflow-hidden rounded-full border-[3px] border-gold-400/65 shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64">
+              <img
+                {...optimizedImage("staff-giulia-preview")}
+                alt="Giulia Corneli"
+                width="1536"
+                height="2048"
+                loading="lazy"
+                decoding="async"
+                sizes="256px"
+                class="h-full w-full scale-[1.65] object-cover object-[center_75%]"
+              />
+            </div>
             <div>
               <h2 class="font-display text-3xl">Giulia Corneli</h2>
               <p class="mt-2 leading-6 text-ink-soft">
@@ -94,17 +96,19 @@ export default component$(() => (
               </p>
             </div>
           </article>
-          <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] sm:flex-row sm:text-left md:p-8">
-            <img
-              {...optimizedImage("staff-francesca-vicalvi")}
-              alt="Francesca Vicalvi"
-              width="1536"
-              height="2048"
-              loading="lazy"
-              decoding="async"
-              sizes="256px"
-              class="h-56 w-56 shrink-0 rounded-full border-[3px] border-gold-400/65 object-cover object-[center_60%] shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64"
-            />
+          <article class="flex flex-col items-center gap-6 rounded-[2rem] border border-gold-400/45 bg-white/70 p-7 text-center shadow-[var(--shadow-card)] lg:flex-row lg:text-left md:p-8">
+            <div class="h-56 w-56 shrink-0 overflow-hidden rounded-full border-[3px] border-gold-400/65 shadow-[0_10px_30px_-18px_rgba(121,73,20,.45)] md:h-64 md:w-64">
+              <img
+                {...optimizedImage("staff-francesca-preview")}
+                alt="Francesca Vicalvi"
+                width="1536"
+                height="2048"
+                loading="lazy"
+                decoding="async"
+                sizes="256px"
+                class="h-full w-full origin-[35%_center] scale-[1.85] object-cover object-[center_75%]"
+              />
+            </div>
             <div>
               <h2 class="font-display text-3xl">Francesca Vicalvi</h2>
               <p class="mt-2 leading-6 text-ink-soft">
